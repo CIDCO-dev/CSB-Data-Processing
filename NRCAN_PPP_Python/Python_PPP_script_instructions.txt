@@ -1,0 +1,39 @@
+NRCAN:
+
+dependencies:
+wget: http://downloads.sourceforge.net/gnuwin32/wget-1.11.4-1-setup.exe
+or http://gnuwin32.sourceforge.net/packages/wget.htm for more options
+add wget.exe to path: C:\Program Files (x86)\GnuWin32\bin
+
+unzip
+download: http://stahlworks.com/dev/index.php?tool=zipunzip
+add to program files manually
+add to path
+
+Note: tutorial on adding to path in windows -- 
+
+----
+code fixes:
+wget_max = 30 (increase if needed)
+log = Popen(shlex.split(command), stdout=PIPE, shell=True) #add shell
+
+----to run:
+
+CMD: 
+
+python csrs_ppp_cgi_browser.py --user_name k.a@unb.ca --lang en --ref NAD83 --epoch CURR --mode Kinematic --rnx 13_46_34-2017_09_22-gps.17o --path C:\Users\karfeen\Desktop\test
+
+python csrs_ppp_cgi_browser.py --user_name k.a@unb.ca --lang en --ref NAD83 --epoch CURR --mode Kinematic --rnx 13_46_34-2017_09_22-gps.17o --path C:/Users/karfeen/Desktop/test
+
+python PPP_working.py --user_name k.a@unb.ca --lang en --ref NAD83 --epoch CURR --mode Kinematic --rnx C:\PPP\13_46_34-2017_09_22-gps.17o --path C:\PPP
+
+ have attached a sample python script that we developed to allow users to automatically submit RINEX files to the CSRS-PPP service. The python requirements and some instructions for running it are located in the header.
+ 
+In the sample command line you will see one of the inputs is “—user_name cgis0172”.  For this, you should replace cgis0172 with your actual username (which is the email you use when signing up for an account and signing into the CSRS-PPP service online or with ppp_direct).  This allows us to quickly track user submissions in the event that you report a problem.
+
+https://webapp.geod.nrcan.gc.ca/geod/tools-outils/ppp.php?locale=en
+email: k.a@unb.ca
+pass: M1
+
+references:
+http://www.nrcan.gc.ca/earth-sciences/geomatics/geodetic-reference-systems/tools-applications/10925

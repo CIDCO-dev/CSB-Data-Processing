@@ -1,0 +1,64 @@
+Qualify GNSS on:
+
+
+---Questions:
+!- std is calculated using mean from all observations in the rinex file
+!- is value of 1stdev or how many std away from mean?
+A: it is difference/variation from mean at 95% confidence
+
+
+CSRS-PPP:
+- note stdev is calculated by taking the average of the entire rinex file
+
+PPP_headers:
+DIR - direction
+FRAME - reference frame
+STN - station?
+DAYofYEAR - date
+YEAR-MM-DD - date
+HR:MN:SS.SS - time
+NSV - navigation space vehicles (# sat in sky)
+GDOP - geometrical dilution of precision (spread of sat in sky)
+RMSC(m)
+RMSP(m)
+DLAT(m),DLON(m),DHGT(m) - lat, long, height in degree
+CLK(ns) - clock
+TZD(m) - total zenith delay
+SDLAT(95%) - stdev latitude
+SDLON(95%) - stdev longitude
+SDHGT(95%) - stdev height
+SDCLK(95%) - stdev clock
+SDTZD(95%) - stdev total zenith delay
+LATDD,LATMN,LATSS - latitude in d,m,s
+LONDD,LONMN,LONSS - longitude in d,m,s
+HGT(m) - height referenced to ellipsoid
+UTMZONE
+UTM_EASTING
+UTM_NORTHING
+UTM_SCLPNT
+UTM_SCLCBN
+
+GDOP - Geometrical Dilution of Precision
+- how spread out the statelites are in the sky
+- looks at (x,y,z,t) 3d+time
+- DOP is a useful estimate of the likely accuracy and precision related to the satellite positions, this is not the only source of error as can be seen from the list above.
+
+https://www.nrem.iastate.edu/class/assets/nrem446_546/Lec2_week2_Error-DOP.pdf
+- slide 24 gives GDOP rating (2-3 is excellent)
+- slide 30 gives calculating error
+https://www.developerfusion.com/article/4652/writing-your-own-gps-applications-part-2/2/
+https://www.radio-electronics.com/info/satellite/gps/accuracy-errors-precision.php
+- also gives DOP rating description
+- and error calculation
+
+file:///D:/Dropbox/Running/ProjectResearch/%23LiteratureLiterature/dilution%20of%20precision%20-%20langley.pdf
+- info on gdop 
+- how to calculate UERE -- User Equivalent Range Error
+- GDOP acts as a scaling factor of the UERE
+
+- compare[gpgst, ppp, nsv/gdop]
+https://hemispheregnss.com/gnssreference/GPGST.htm
+**gdop: https://www.nrem.iastate.edu/class/assets/nrem446_546/Lec2_week2_Error-DOP.pdf
+https://www.developerfusion.com/article/4652/writing-your-own-gps-applications-part-2/2/
+https://www.radio-electronics.com/info/satellite/gps/accuracy-errors-precision.php
+**nsv no real number, experiment

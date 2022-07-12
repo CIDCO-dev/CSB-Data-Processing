@@ -1,0 +1,28 @@
+These scripts are used to process hydrographic data through automation with the use of several tools. 
+
+Phase 1:
+* GNSS Module
+* SVP Module
+
+To Install:
+
+*Linux:
+- requires Python 2.7
+- download csb_data_processing python package
+- change directory to 'csb_data_processing/'
+- run 'python setup.py install'
+
+this will install all dependencies required to run the script. 
+To begin running see 'csb_data_processing/docs/' for GNSS and SVP module instructions
+
+*Windows:
+- requires Python 2.7
+- requires WGET (https://sourceforge.net/projects/gnuwin32/files/wget/1.11.4-1/wget-1.11.4-1-setup.exe/download?use_mirror=excellmedia)
+- requires unzip (https://sourceforge.net/projects/gnuwin32/files/unzip/5.51-1/unzip-5.51-1.exe/download?use_mirror=superb-dca2&download=)
+- requires that WGET and UNZIP be on the Path (Windows) in order to function correctly
+- download csb_data_processing python package
+- change directory to 'csb_data_processing/'
+- run 'python setup.py install'
+
+this will install all dependencies required to run the script. 
+To begin running see 'csb_data_processing/docs/' for GNSS and SVP module instructions

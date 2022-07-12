@@ -1,0 +1,86 @@
+#GNSS Qualification Module
+
+#Main Script:
+gps_qualification.py
+
+#Helper Script:
+N/A
+
+#External Scripts:
+csrs_ppp_cgi_browser.py
+
+#Python Requirements:
+Main: os, csv, datetime
+External: os, sys, subprocess, time, argparse, shlex, datetime, wget, unzip
+
+----gps_qualification.py
+
+'''
+This module is designed to qualify the GNSS aquisition quality 
+in order to access to proceed to apply vertical referencing via
+GPS-tides or model-tides approach. 
+
+Uses the GDOP and NSV as parameters for qualification. 
+
+Author: Khaleel Arfeen
+Email: k.a@unb.ca
+Version: 1.0.0
+'''
+
+# apply_nrcan_ppp(rnx_file, output_path)
+function: inputs a rinex file and calls the NRCAN PPP script to perform the analysis on the file and to save in the output path. Performs necessary checks on if output path and rinex files exist and if not will throw an IO error. 
+inputs: rinex file and output path
+output: 0 for complete or returns an error
+notes: default parameters are nrcan_script and username. The nrcan_script should be kept in the same directory as the main script and if the name changes of the script this field should be updated. The user name is used by nrcan for error tracking.
+
+Steps:
+1) check output path and rinex files exists at locations specified
+2) make sure output path only contains rinex file. Used because if there is an error processing, directory may contain other half processed files
+3) call the nrcan ppp script and return 0 or error
+
+# qualify_ppp_output(pos_file_name, output_path)
+function: inputs the name of the NRCAN generated pos file and output path. Creates a srt file and with the help of helper functions sorts the readings into GNSS-vertical and Tidal-vertical readings and outputs them to the file. 
+inputs: pos file and output path for .srt file
+output: creates srt file in output path and returns 0 or error
+notes: 
+
+steps:
+1) open the pos file for reading and creates the srt file for writing
+2) remove the pos file nrcan header with help of identify_pos_header helper 
+3) sperate header from the contents of the file
+4) sort the GNSS readings into GNSS-vertical and Tidal-vertical using sort_gps_reading helper
+5) write results of the sorting process to the srt file
+6) close the srt file
+7) return 0 or error
+
+# sort_gps_readings(header, file_contents)
+function: given a header and file contents, this function will sort the file contents based on threshold veriables. The default is NSV and GDOP to used as sorting criteria. 
+inputs: header and file contents of a NRCAN pos file
+output: returns to sorted lists based on GNSS-verical and Tidal-vertical
+notes: NSV and GDOP used for sorting, if needing to add another field add to threshold variables and update the cose accordingly.
+
+steps:
+1) set the default threshold values
+2) create two empty lists to be returned
+3) get indices for the default threshold values in the header
+4) sort the gnss readings using the default values
+5) return the two lists
+
+# identify_pos_header(file_contents)
+function: given file contents of a pos file, this function is used to identify the ending line of the default and not used NRCAN header
+inputs: pos file contents
+output: index position of ending of the pos file
+notes: beginning and end of header identified by "---..."
+
+steps:
+1) use a for loop to identify the end of the header marked by a line "---..."
+
+----csrs_ppp_cgi_browser.py
+function: inputs a rinex file and user parameters to upload to NRCAN server, process the rinex using PPP and then download the results
+inputs: user_name, language, reference(NAD83,ITRF), epoch(curr), mode(static, kinematic etc.), rinex file path, download/output path
+output: downloads the results of the PPP processing to the specified output path
+notes: there are some requirements for this script to work in windows, such as wget and unzip. If timing out change wget or timeout values to be higher. Can select which files to unzip in the destination output folder. 
+ELAINE: [SDC: pseudo-range standard deviation (std), SDP: phase std]
+*See script help, helper notes for more information
+references:
+http://www.nrcan.gc.ca/earth-sciences/geomatics/geodetic-reference-systems/tools-applications/10925

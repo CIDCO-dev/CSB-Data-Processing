@@ -1,0 +1,1 @@
+13_46_34-2017_09_22-gps_2xx.17o | Warning : Although an antenna record was located in the RINEX file, no phase centre information could be found in the IGS/NGS file for your antenna. Estimated height should be used with caution. Ensure that both the antenna type and the RINEX header record "ANT # / TYPE " are valid.

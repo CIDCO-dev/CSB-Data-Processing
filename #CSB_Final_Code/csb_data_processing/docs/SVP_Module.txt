@@ -1,0 +1,228 @@
+#Sound Velocity Profile (SVP) Module
+
+#Main Script:
+hycom_svp.py
+
+#Helper Script:
+N/A
+
+#External Scripts:
+N/A 
+
+#Python Requirements:
+Main: pydap.client, datetime, copy, os, gsw==3.0.6
+
+----hycom_svp.py
+
+'''
+#Note: the current default hycom url is valid for 2018 to present. If processing older data, the url must be updated to the correct domain. 
+
+This module is designed to take the .srt file created from the GNSS processing module and
+parse the data to obtain necessary inputs (date, time, latitude, longitude) to the Hycom
+Oceanographic model. The script will take this information for each line in the .srt file,
+convert it to a Hycom index, query the model, convert the results from hycom indices, create
+the sound velocity from model temperatures and salinity and finally save the results as a 
+Caris SVP format file.
+
+The script will minimize queries to the Hycom model by keeping a cache of queries and if 
+the query is not successful will perform a radial search for the nearest node. 
+
+The model uses the Hycom model to query Temperature-depth and Salinity-depth arrays for
+a given location and time. These arrays are then converted to sound velocities using the
+TEOS-10 algorithm. 
+
+Author: Khaleel Arfeen
+Email: k.a@unb.ca
+Version: 1.0.0
+'''
+
+# Hycom_SVP_Query(srt_file_name, output_path) 
+-> ie. Hycom_SVP_Query('16_32_34-2018_08_02-gps.srt','C:/PPP/work/') 
+*class: initializes the svp class and populates the variables needed for processing as their default values. 
+*inputs: srt file name and the output path. 
+*notes: srt file must be in same directory as output
+
+# load_srt_contents()
+*function: opens the srt file and loads contents into memory. 
+*input: uses class variable self.output_path and self.srt_file_name to locate file. 
+*output: loads contents of file into class variable self.srt_contents
+*notes: make sure output path and srt are in same directory or change logic
+
+*Steps:
+1) check if srt file exists in output_path + srt_file_name
+2) if file exists, opens file and loads content to class variable 
+3) close the srt file
+
+# identify_srt_header()
+*function: identify .pos header locations and assign header variables. Three header locations are being searched, the file header, GNSS section header and Tide section header. 
+*input: self.index.keys(), 
+*output: self.header_variables
+*notes: Uses string comparison to find header and assign line in file as dictionary value. 
+
+*Steps:
+1) For loop through the 3 different commands (header, gnss, tide)
+2) finds location of header via a for loop through srt_contents
+3) sets the variables with the appropriate index value
+
+# svp.identify_header_variables()
+*function: identify index values for required header variables. 
+*input: self.header_index.items()
+*output: self.header_index
+*notes: required values are time, date, latitude, longitude (self.header_index)
+
+*Steps:
+1) for loop through header.index.items() and find index the appropriate location of the items in the file header. 
+
+svp.rinex_iterator()
+*function: -main- to iterate through srt_contents to formulate hycom index values, query the hycom model and save output of svp in caris format
+*input: self.srt_contents, 
+*output:
+*notes: hycom depth index will always be '0:39', final query will be floored (ie. values will be rounded down for the query), 
+
+*Steps:
+1) set the variable file_data to the srt_contents from the gnss section on
+2) try to connect to the hycom model via connect_to_hycom(). If fails will retry upto the amount specified in self.rinex_iterator_retry_attempts
+3) if successfully connected to hycom server, begin a for loop over each line in file_data, skipping over empty and non-data lines
+4) retrieve the data from the line using self.retrieve_line_values(line)
+5) create hycom time index using self.format_datetime() and self.hours_since_epoch()
+6) create hycom latitude and longitude index using self.dms_to_dd(), self.find_latitude_index(lat_dd) and self.find_longitude_index(lon_dd)
+7) final hycom query is then finalized by rounding down (floor)
+8) check if hycom query is in self.hycom_query_cache and if so pass to minimize query redundancy
+9) if query not in cache, then append to cache and query hycom for salinity values via self.query_hycome_salinity()
+10) after query check if it was successful via self.hycom_query_flag and if so append the line index to self.successful_query_srt_index and save the lat and lon values to self.raw_latdd_londd
+11) reset dictionary values for self.srt_line_data and reloop until iteration through all lines completed
+12) if no successful queries, perform a radial search for data via self.search_hycom()
+13) once have successful list of queries, search respective temperature values in hycom via self.query_hycom_temperature()
+14) finally, create and save svp via save_output_svp()
+
+# retrieve_line_values(line)
+*function: -helper- retrieves needed values from rinex line and saves to class variable
+*input: srt line, self.srt_line_map_values
+*output: self.srt_line_data
+*notes: required values are time, date, latitude, longitude. Time and data are kept as strings, the lat and lon are converted to float. 
+
+*Steps:
+1) for loop over self.srt_line_map_values and sets the line value to the appropriate key in self.srt_line_data
+
+# format_datetime()
+*function: -helper- format rinex date and time into ordered list
+*input: date, time as strings
+*output: date, time as list
+*notes: n/a
+
+# hours_since_epoch()
+*function: convert date and time to hours since hycom epoch
+*input: year, month, day, hours, mins, secs
+*output: hours since epoch
+*notes: hycom epoch can be found via hycom info below. Used to query the model. 
+
+# dms_to_dd(dd, mn, ss)
+*function: convert dms location to decimal degree
+*input: decimaldegrees, minutes, seconds
+*output: decimal degree
+*notes: used for model query
+
+# find_latitude_index(latitude)
+*function: -helper- returns hycom index for a given latitude
+*input: latitude
+*output: latitude hycom index
+*notes: see attached hycom_index value documentation for more info on how hycom indices their model. Global model latitude steps are not consistent, so need to determine which range you are in to apply appropriate calculation. 
+
+*Steps:
+1) determine which range in hycom grid latitude the supplied latitude is in
+2) return appropriate index 
+
+# find_longitude_index(longitude)
+*function: -helper- return hycom index for a given longitude
+*input: longitude
+*output: longitude hycom index
+*notes: see attached hycom_index value documentation for more info on how hycom indices their model.
+
+# connect_to_hycom()
+*function: -helper- connect to hycom model opendap thredds server
+*input: self.gbl_hycom
+*output: True, False 
+*notes: creates database handle and sets as class variable self.hycom_db_handle. URL is set as default value in self.glb_hycom variable.
+
+# query_hycom_salinity()
+*function: -helper- query salinity values from the hycom model
+*input: self.hycom_db_handle.salinity, self.hycom_query_cache, 
+*output: self.hycom_query_flag, self.hycom_salinity_data
+*notes: null values are reported as -30000 in hycom, depth hardcoded because was giving an error as a string. 
+
+*Steps:
+1) retrieve the last query in the cache
+2) query the modeul using the retrieved query information
+3) if successful in obtaining data, set query flag to true and append data to class variable for salinity data
+4) if not successful set query flag to false
+
+# query_hycom_temperature()
+*function: -helper- query temperatures values from the hycom model
+*input: self.hycom_db_handle.water_temp, self.hycom_query_cache, self.hycom_query_flag
+*output: self.hycom_temperature_data
+*notes: null values are reported as -30000 in hycom, depth hardcoded because was giving an error as a string. 
+
+*Steps:
+1) for loop through retrieves flag and query list
+2) if flag is true query the model, if not pass
+3) append data to class variable for temperature data
+
+# search_hycom()
+*function: -helper- finds the nearest node from a failed query using a radial search
+*input: self.hycom_query_cache, self.hycom_query_flag
+*output: self.hycom_query_cache, 
+*notes: radial search used however will stop at first value found. Can update later to take a weighted average of multiple found values for more accurate reading. 
+
+*Steps:
+1) for loop through retrieves flag and query list
+2) use a counter and index to iteratively search a radius from given location by one step. Starts off going up to center if fails goes right to center, if fails goes down to center and if fails goes left to center. Then if all fail goes up and right to center, if fails goes down and left to center, if fails goes up and left to center, if fails goes down and right to center. If all queries fail, increase index step size by one and repeat. 
+3) each time a search is initiated uses self.query_hycom_salinity() logic and thus if not successful will remove last results as pop function. 
+4) will repeat until flag is True 
+
+# save_output_svp()
+*function: -helper- save queried data to svp caris format
+*input: self.hycom_salinity_data, self.hycom_temperature_data
+*output: caris svp file
+*notes: saves as multiple caris svp files currently, can update to change to one file as a caris master svp format 
+
+*Steps:
+1) clear out directory using self.clean_directory()
+2) write header and metadata for svp file
+3) send lat, lon to calculate sound velocity using self.calculate_svp()
+4) writes depth, sv to file and closes file
+
+# clean_directory()
+*function: -helper- removes all .svp files from directory if they exist
+*input: self.output_path
+*output: n/a
+*notes: prevents errors during processing and duplicate files
+
+# format_svp_header(count)
+*function: -helper- format the header line of svp file
+*input: count
+*output: comment
+*notes: formats the metadata header line for svp file. includes the applicable lines for the srt file and the query used as a comment for the user. 
+
+# calculate_svp(lat, lon)
+*function: -helper- calculate svp from Teos-10 formula
+*input: lat, lon
+*output: depth, sound velocity 
+*notes: utilizes the gsw library to do the calculation. Need to use an older version as newer ones do not support python 2.7. Can be downloaded using 'pip install gsw==3.0.6'. The gsw library performs the TEOS-10 sound velcity conversion from temperature, salinity, latitude and longitude. 
+
+*Steps:
+1) iterate through each salinity and temperature array using a for loop
+2) otherwise converts salinity and temperature from hycom model values to real world values using the appropriate conversion. Then uses these salinity, temperature and supplied latitude and longitude as inputs to the gsw.SA_from_SP function to create a sound velocity using TEOS-10 algorithm. 
+3) if the array encounters a null value it means the end of data and the svp is returned
+
+----Further Information
+pydap info: https://pydap.readthedocs.io/en/latest/client.html #used to interact with hycom
+hycom info: https://www.hycom.org/dataserver/gofs-3pt1/analysis
+hycom web query: http://tds.hycom.org/thredds/dodsC/GLBv0.08/expt_93.0.html
+hycom values attributes: http://tds.hycom.org/thredds/dodsC/GLBv0.08/expt_93.0.das
+hycom index values: Hycom_Index_Map.xlsx
+gsw library (3.0.6): 
+https://teos-10.github.io/GSW-Python/gsw_flat.html
+https://github.com/TEOS-10/python-gsw/blob/master/README.rst
+TEOS-10 info:
+http://www.teos-10.org/
+http://www.teos-10.org/pubs/Getting_Started.pdf

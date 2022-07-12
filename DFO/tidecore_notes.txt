@@ -1,0 +1,65 @@
+Mitchell O'Flaherty-Sproul
+
+Hi,
+
+What is you looking for is possible with WebTide (although a non-standard use).
+WebTide is basically a Java GUI on top of some C-code (tidecor). The tidecor can also be used directly.
+
+If you want to run tidecor (or Tidecor.exe) from the terminal like that you need to have the correct set of input files.
+You will need to create an input file that lists the points in this format.
+lon            lat      year   dayofyear    hours    minutes    seconds
+-153.868    58.004000    2014    310        00       00         00
+
+Then you can run tidecor using this command,
+tidecor.exe tidecor_velocity.cfg input.dat output.dat
+
+
+For the cfg file you can download an example I created for the pacific grid.
+https://www.dropbox.com/s/fjzxnp09nwm6xq0/webtide_batch_jim.zip?dl=0 
+
+You will have to create a new cfg file for which ever region you are using. 
+This file tells tidecor which grid information to use as well as which constituents to use.
+
+
+Let me know if you have any questions.
+
+Regards,
+Mitchell
+----------------------------------------
+
+Hi,
+
+That example was initially setup for velocity, so those values are u and v.
+
+It works similarly for elevation. You can make a new cfg file and point it at the s2c files instead of the v2c files.
+And when run it should yield a single number for elevation.
+
+Let me know if you have any issues making it work.
+If so I should be able to put together a cfg for the region you are working in.
+
+Regards,
+Mitchell
+
+----------------------------------------
+
+Running,
+tidecor.exe tidecor_velocity.cfg input.dat output.dat
+Should produce velocities.
+
+Running,
+tidecor.exe tidecor_elevation.cfg input.dat output.dat
+Should produce elevations.
+
+The *2c files are tidal constituents extracted from a model, I think the Webtide page has a reference for a paper.
+They do not need to be updated for difference time periods. 
+
+If you are unaware of tidal constituents you can download "the tidal bible" here,
+https://www.researchgate.net/profile/M_Foreman/publication/264782934_TIDAL_ANALYSIS_BASED_ON_HIGH_AND_LOW_WATER_OBSERVATIONS/links/53eeda6f0cf23733e812c164/TIDAL-ANALYSIS-BASED-ON-HIGH-AND-LOW-WATER-OBSERVATIONS.pdf?origin=publication_detail
+
+
+Let me know if the above does not work for you.
+
+Regards,
+Mitchell
+
+----------------------------------------
