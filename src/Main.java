@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 © Centre Interdisciplinaire de développement en Cartographie des Océans (CIDCO), Tous droits réservés
+ * 
+ * @author Dominic Gonthier
+ * 
+ */
+
 package ubx2ppp;
 
 import java.io.File;
