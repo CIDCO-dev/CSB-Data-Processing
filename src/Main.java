@@ -18,9 +18,11 @@ import java.util.List;
  * Replace the pppPath value (line 21) by your NRCAN python script with his path
  * 
  * In commandline:
- * CD to this Main.java
+ *	:$ pip install requests-toolbelt
+ *
+ * cd to this Main.java
  * Compile the change (:$ javac Main.java )
- * $java Main.java /path/to/the/file.ubx
+ * $ java Main.java /path/to/the/file.ubx
  */
 
 
