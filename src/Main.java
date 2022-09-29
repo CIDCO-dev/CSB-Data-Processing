@@ -15,14 +15,14 @@ import java.util.List;
 
 /*
  * To use the script, you have to install the last version of RTKLIB and put convbin in the usr/local/bin
- * Replace the pppPath value (line 21) by your NRCAN python script with his path
+ * Replace the pppPath value (line 35) by your NRCAN python script with his path
  * 
  * In commandline:
- *	:$ pip install requests-toolbelt
+ *   :$ pip install requests-toolbelt
  *
- * cd to this Main.java
+ * CD to this Main.java
  * Compile the change (:$ javac Main.java )
- * $ java Main.java /path/to/the/file.ubx
+ * $java Main.java /path/to/the/file.ubx
  */
 
 
@@ -35,9 +35,11 @@ public class Main {
 		final String pppPath ="/home/dominic/eclipse_ubx/csrs_ppp_auto_v1_6_1/csrs_ppp_auto.py";		
 		
 		// Get file in commandline argument
+        String argument = new java.io.File(args[0]).getAbsolutePath();
+        File arg = new File(argument);
         String nameFile= new java.io.File(args[0]).getName();
         String nameNoExt= nameFile.replaceAll(".ubx", "");
-        String pathFile= new java.io.File(args[0]).getParent();
+        String pathFile= arg.getParent();
         
         // Make all directories 
         File name = new File (pathFile+"/"+nameNoExt);
@@ -53,12 +55,12 @@ public class Main {
         	}
         
         // Use convbin to generate .obs file      
-        ProcessBuilder processObsBuilder= new ProcessBuilder("convbin", "-r", "ubx","-d", pathFile+"/"+nameNoExt+"/Rinex", args[0]);
+        ProcessBuilder processObsBuilder= new ProcessBuilder("convbin", "-r", "ubx","-d", pathFile+"/"+nameNoExt+"/Rinex", argument);
         processObsBuilder.inheritIO();
         Process processOBS= processObsBuilder.start();
         processOBS.waitFor();
         
-        Process moveUBX= new ProcessBuilder("mv", args[0], pathFile+"/"+nameNoExt+"/ubx_done").start();
+        Process moveUBX= new ProcessBuilder("mv", argument, pathFile+"/"+nameNoExt+"/ubx_done").start();
         
         // Send .obs to NRCAN
         ProcessBuilder processBuilderPPP = new ProcessBuilder("python3", pppPath,"--user_name","dominic.gonthier@cidco.ca", "--rnx", pathFile+"/"+nameNoExt+"/Rinex/"+nameNoExt+".obs", "--results_dir", pathFile+"/"+nameNoExt+"/ppp");
@@ -68,6 +70,5 @@ public class Main {
 
 	}
 }
-
 
       	
