@@ -1,3 +1,6 @@
+# Updated by Tony Furey on 2022-10-19
+# Changes made to sort_gps_readings() to qualify as either ERS, WLRS, or INVALID.
+
 import os
 import datetime
 import sys
@@ -80,26 +83,30 @@ class GnssQualification:
             sdhgt_reading = float(lines[sdhgt_index])
             #sdclk_reading = float(lines[sdclk_index])
 
-            if nsv_reading < nsv_ppp or gdop_reading > gdop_ppp or sdlat_reading > sdlat_ppp or sdlon_reading > sdlon_ppp or sdhgt_reading > sdhgt_ppp:
-                return False
+            if nsv_reading > nsv_ppp and gdop_reading < gdop_ppp and sdlat_reading < sdlat_ppp and sdlon_reading < \
+                    sdlon_ppp and sdhgt_reading < sdhgt_ppp:
+                return print('GNSS data is valid, proceed to ERS')
 
-        return True
+            elif nsv_reading > nsv_ppp and gdop_reading < gdop_ppp and sdlat_reading < sdlat_ppp and sdlon_reading < \
+                    sdlon_ppp and sdhgt_reading > sdhgt_ppp:
+                return print('GNSS data acceptable for WLRS')
+
+            else:
+                return print('GNSS data is invalid.')
+
 
 #######################################
 # MAIN
 
 # Get pos file path as CLI parameter
+
 if len(sys.argv) != 2:
-	sys.stderr.write("Usage: gnss_qualify.py pos-file-path\n")
-	sys.exit(1)
+    sys.stderr.write("Usage: gnss_qualify.py pos-file-path\n")
+    sys.exit(1)
 
 posFilePath = sys.argv[1]
 
 # Create and call GNSS qualification
 
 gnss = GnssQualification()
-
-if gnss.validateGnss(posFilePath):
-	print("GNSS data is valid, proceed to ERS")
-else:
-	print("GNSS data is invalid, proceed to WLRS")
+gnss.validateGnss(posFilePath)
