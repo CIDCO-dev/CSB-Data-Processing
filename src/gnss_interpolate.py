@@ -84,13 +84,13 @@ class GnssInterpolation:
         imu_contents = imu_contents.sort_values('Timestamp')
 
         # initialize lists
-        x = []  # latitude
-        y = []  # longitude
-        z = []  # ellipsoidal height
-        h = []  # heading
-        p = []  # pitch
-        r = []  # roll
-        s = []  # sounding
+        x = []  # latitude (UTM, Zone in gnss_contents)
+        y = []  # longitude (UTM, Zone in gnss_contents)
+        z = []  # height (CGVD2013)
+        h = []  # heading (deg)
+        p = []  # pitch (deg)
+        r = []  # roll (deg)
+        s = []  # sounding (m)
         timestamps = []
 
         t = 0  # loop counter
