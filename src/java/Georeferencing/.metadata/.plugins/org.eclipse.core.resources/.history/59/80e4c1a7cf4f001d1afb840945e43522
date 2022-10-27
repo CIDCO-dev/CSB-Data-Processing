@@ -1,0 +1,5 @@
+package ca.cidco.csb.utilities;
+
+public class LinearInterpolator {
+
+}

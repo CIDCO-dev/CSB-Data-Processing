@@ -1,0 +1,1 @@
+2022_09_26_202748.obs | Warning : No antenna type RINEX header record was found. Phase Centre Offsets and Variation could not be applied. Estimated height should be used with caution. 2022_09_26_202748.obs | Warning : A priori and estimated positions differ by more than 50 metres. Solution is likely erroneous and should be verified.

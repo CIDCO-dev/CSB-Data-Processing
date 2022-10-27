@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Hydroblock20Test" project="Georeferencing" tests="5" started="5" failures="0" errors="0" ignored="0">
+  <testsuite name="ca.cidco.csb.test.Hydroblock20Test" time="5.002">
+    <testcase name="ReadPathWithoutImuFileTest" classname="ca.cidco.csb.test.Hydroblock20Test" time="0.0"/>
+    <testcase name="ReadPathWithoutUbxFileTest" classname="ca.cidco.csb.test.Hydroblock20Test" time="1.549"/>
+    <testcase name="testSetPositions" classname="ca.cidco.csb.test.Hydroblock20Test" time="0.001"/>
+    <testcase name="ReadPathWithoutSonarFileTest" classname="ca.cidco.csb.test.Hydroblock20Test" time="1.053"/>
+    <testcase name="ReadValidTest" classname="ca.cidco.csb.test.Hydroblock20Test" time="2.398"/>
+  </testsuite>
+</testrun>

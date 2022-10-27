@@ -1,0 +1,39 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class GnssQualifierTest {
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void testGnssQualifier() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsErsValid() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsWlrsValid() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testValidate() {
+		fail("Not yet implemented");
+	}
+
+}

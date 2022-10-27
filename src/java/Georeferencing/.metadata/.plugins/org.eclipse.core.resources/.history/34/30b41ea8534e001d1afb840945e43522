@@ -1,0 +1,5 @@
+package ca.cidco.csb.surveydata;
+
+public class Attitude {
+
+}

@@ -1,0 +1,61 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.cidco.csb.ppp.NrcanPPP;
+import ca.cidco.csb.ppp.PppFile;
+import ca.cidco.csb.ppp.PppHeader;
+import ca.cidco.csb.surveydata.Position;
+
+public class PppHeaderTest {
+	
+	private String detectHeader(String posFile) throws Exception {
+		
+		File pppFile = new File(posFile);
+		PppFile ppp = new PppFile();
+//      Finding heading row
+		FileReader fileReaderData = new FileReader(pppFile);
+		BufferedReader bufferedReader = new BufferedReader(fileReaderData);
+		String row;
+		String[] split_row;			
+			
+		while ((row = bufferedReader.readLine()) !=null )  {
+			split_row= row.split("[\\s]{1,}");
+			if(split_row[0].equalsIgnoreCase("DIR")){
+				break;
+			}
+		}
+		PppHeader header = new PppHeader(row); 
+		return header.getDetectedHeader();
+	}
+	
+	String file1 = "/home/dominic/Bureau/georef/posHeader/file1.pos";
+	String file2 = "/home/dominic/Bureau/georef/posHeader/file2.pos";
+	String file3 = "/home/dominic/Bureau/georef/posHeader/file3.pos";
+
+	@Test
+	public void detectHeader3Test() throws Exception {
+
+		assertTrue(detectHeader(file1).equals("PPP_HEADER_3"));
+		assertFalse(detectHeader(file2).equals("PPP_HEADER_3"));
+		assertTrue(detectHeader(file3).equals("PPP_HEADER_3"));
+	}
+	@Test
+	public void detectHeader5Test() throws Exception {
+
+		assertTrue(detectHeader(file1).equals("PPP_HEADER_3"));
+		assertTrue(detectHeader(file2).equals("PPP_HEADER_5"));
+		assertTrue(detectHeader(file3).equals("PPP_HEADER_3"));
+	}
+	
+}

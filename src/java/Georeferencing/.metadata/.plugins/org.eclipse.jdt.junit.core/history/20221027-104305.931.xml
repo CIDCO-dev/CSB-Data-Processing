@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun ca.cidco.csb.test.InterpolationTest.testLinearAngleInterpolationByTimeNotPass360" project="Georeferencing" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="testLinearAngleInterpolationByTimeNotPass360" classname="ca.cidco.csb.test.InterpolationTest" time="0.038"/>
+</testrun>

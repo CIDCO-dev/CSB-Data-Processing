@@ -1,0 +1,1 @@
+2022_10_11_224413.obs | Warning : No antenna type RINEX header record was found. Phase Centre Offsets and Variation could not be applied. Estimated height should be used with caution. 2022_10_11_224413.obs | Warning : Initial CSRS-PPP solution failed. Second solution performed in kinematic mode. Reliability of CSRS-PPP estimate(s) should be validated.

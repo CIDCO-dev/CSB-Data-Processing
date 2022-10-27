@@ -1,0 +1,10 @@
+package ca.cidco.csb.surveydata;
+
+import java.sql.Timestamp;
+
+public class BaseSurveyData {
+	Timestamp timestamp;
+	Double value;
+	
+	
+}

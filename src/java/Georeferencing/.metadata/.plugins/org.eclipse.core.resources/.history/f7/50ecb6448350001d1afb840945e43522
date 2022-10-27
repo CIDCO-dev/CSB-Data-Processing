@@ -1,0 +1,147 @@
+package ca.cidco.csb.surveydata;
+
+import java.sql.Timestamp;
+
+public class Position{
+	
+	private Timestamp timestamp;
+	
+	private Double longitudeDD; //in degrees
+	private Double longitudeMN; //in minutes
+	private Double longitudeSS; //in secondes
+	private Double longitude; //in 
+	private Double latitudeDD;  //in degrees
+	private Double latitudeMN;  //in minutes
+	private Double latitudeSS; //in degrees
+	private Double height; //in degrees
+	
+	private Double sdLongitude; //in meters
+	private Double sdLatitude; //in meters
+	private Double sdHeight; //in meters	
+
+	private Long numberOfSatellites;
+	private Double gdop;	
+	
+	public Position(Timestamp timestamp_, Double longitude_DD, Double longitude_MN, Double longitude_SS, Double latitude_DD , Double latitude_MN , Double latitude_SS, Double height_, Double sdLongitude_, Double sdLatitude_, Double sdHeight_, Long numberOfSatellites_, Double gdop_) {
+         timestamp= timestamp_;
+		 longitudeDD=longitude_DD;
+		 longitudeMN=longitude_MN;
+		 longitudeSS=longitude_SS;
+		 latitudeDD =latitude_DD;
+		 latitudeMN =latitude_MN;
+		 latitudeSS =latitude_SS;
+		 height= height_;
+		 sdLongitude=  sdLongitude_;
+		 sdLatitude=  sdLatitude_;
+		 sdHeight=  sdHeight_;
+		 numberOfSatellites=  numberOfSatellites_;
+		 gdop= gdop_;
+		 
+	}
+//	
+//	public Position(Timestamp timestamp2, double interpLat, double interpLon, double interpAlt) {
+//		// TODO Auto-generated constructor stub
+//	}
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public Double getLongitudeDD() {
+		return longitudeDD;
+	}
+
+	public void setLongitudeDD(Double longitudeDD) {
+		this.longitudeDD = longitudeDD;
+	}
+
+	public Double getLongitudeMN() {
+		return longitudeMN;
+	}
+
+	public void setLongitudeMN(Double longitudeMN) {
+		this.longitudeMN = longitudeMN;
+	}
+
+	public Double getLongitudeSS() {
+		return longitudeSS;
+	}
+
+	public void setLongitudeSS(Double longitudeSS) {
+		this.longitudeSS = longitudeSS;
+	}
+
+	public Double getLatitudeDD() {
+		return latitudeDD;
+	}
+
+	public void setLatitudeDD(Double latitudeDD) {
+		this.latitudeDD = latitudeDD;
+	}
+
+	public Double getLatitudeMN() {
+		return latitudeMN;
+	}
+
+	public void setLatitudeMN(Double latitudeMN) {
+		this.latitudeMN = latitudeMN;
+	}
+
+	public Double getLatitudeSS() {
+		return latitudeSS;
+	}
+
+	public void setLatitudeSS(Double latitudeSS) {
+		this.latitudeSS = latitudeSS;
+	}
+
+	public Double getHeight() {
+		return height;
+	}
+	public void setHeight(Double height) {
+		this.height = height;
+	}
+	public Double getSdLongitude() {
+		return sdLongitude;
+	}
+	public void setSdLongitude(Double sdLongitude) {
+		this.sdLongitude = sdLongitude;
+	}
+	public Double getSdLatitude() {
+		return sdLatitude;
+	}
+	public void setSdLatitude(Double sdLatitude) {
+		this.sdLatitude = sdLatitude;
+	}
+	public Double getSdHeight() {
+		return sdHeight;
+	}
+	public void setSdHeight(Double sdHeight) {
+		this.sdHeight = sdHeight;
+	}
+	
+	public Long getNumberOfSatellites() {
+		return numberOfSatellites;
+	}
+
+	public void setNumberOfSatellites(Long numberOfSatellites) {
+		this.numberOfSatellites = numberOfSatellites;
+	}	
+	
+	public Double getGdop() {
+		return gdop;
+	}
+
+	public void setGdop(Double gdop) {
+		this.gdop = gdop;
+	}	
+	
+    // Overriding toString() method of String class
+    @Override
+    public String toString() {
+        return "Timestamp : "+ timestamp+" |  Longitude : "+longitudeDD+" DD "+ longitudeMN + " MN "+ longitudeSS + " SS | Latitude : "+ latitudeDD+" DD "+ latitudeMN + " MN "+ latitudeSS + " SS | height : "+height +"  | NVS : "+ numberOfSatellites+" | GDOP : "+gdop + " | SDLAT : "+sdLatitude+" | SDLON : "+sdLongitude+" | SDHGT : "+sdHeight +"\n";
+    }
+}

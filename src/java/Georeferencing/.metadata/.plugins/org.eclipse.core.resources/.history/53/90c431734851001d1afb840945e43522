@@ -1,0 +1,62 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.cidco.csb.surveyplatform.hydroblock.Hydroblock20;
+
+public class Hydroblock20Test {
+	Hydroblock20 hydro = new Hydroblock20();
+	String dataPath = "/home/dominic/Bureau/georef/";
+	String ubxFile = "/home/dominic/Bureau/georef/2022.10.11_224413.ubx"; // Valid 	 POS		Bella
+	String imuFile = "/home/dominic/Bureau/georef/2022.10.11_223416_imu.txt"; 
+	String sonarFile = "/home/dominic/Bureau/georef/2022.10.11_223416_sonar.txt";
+
+//	@Before
+//	public void setUp() throws Exception {
+//	}
+//
+//	@After
+//	public void tearDown() throws Exception {
+//	}
+
+
+	@Test
+	public void testRead() throws Exception {
+		hydro.read(dataPath);
+	}
+
+	@Test
+	public void testReadSonar() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetPositions() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSetPositions() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetAttitudes() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetDepths() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetGnss() {
+		fail("Not yet implemented");
+	}
+
+}

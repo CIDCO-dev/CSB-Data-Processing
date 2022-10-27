@@ -1,0 +1,9 @@
+------------------------------------------------------------------------------- 
+GPS Precise Point Positioning (CSRS-PPP ver.        1.05/11216/2016-04-21)      
+Natural Resources Canada                                                        
+Phone: 343-292-6617                                                             
+Email: nrcan.geodeticinformationservices.rncan@canada.ca                        
+------------------------------------------------------------------------------- 
+DIR FRAME        STN         DOY YEAR-MM-DD HR:MN:SS.SSS NSV GDOP    SDC    SDP       DLAT(m)       DLON(m)       DHGT(m)         CLK(ns)   TZD(m)  SLAT(m)  SLON(m)  SHGT(m) SCLK(ns)  STZD(m) LAT(d) LAT(m)    LAT(s) LON(d) LON(m)    LON(s)   HGT(m) CGVD28_HTv2.0_Height NORTHING(m)  EASTING(m) ZONE SCALE_FACTOR HEMI   AM COMBINED_SCALE_FACTOR 
+BWD NAD83(CSRS) N/A  345.7520483 2017-12-11 18:02:57.000   5  4.2   9.26 0.0015       -13.109        23.380        21.900          35.502   2.4018   42.815   72.156  132.512  239.065   0.0696     47     23 22.37752    -53      8  5.43751        45.016       35.248  5250664.382  338883.749   22      0.99991902 N   0 0.99991195 
+

@@ -1,0 +1,13 @@
+package ca.cidco.csb.test;
+
+import ca.cidco.csb.surveyplatform.hydroblock.Hydroblock20;
+
+public class Hydroblock20extendForTest extends Hydroblock20 {
+	
+	
+	public Hydroblock20extendForTest() {
+		
+		// TODO Auto-generated constructor stub
+	}
+
+}

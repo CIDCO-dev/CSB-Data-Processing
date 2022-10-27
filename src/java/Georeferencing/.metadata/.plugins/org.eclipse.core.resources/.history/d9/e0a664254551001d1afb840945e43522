@@ -1,0 +1,54 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.cidco.csb.ppp.NrcanPPP;
+import ca.cidco.csb.ppp.PppFile;
+import ca.cidco.csb.surveydata.Position;
+
+public class NrcanPppTest {
+
+//	String test_2 = "/home/dominic/Bureau/ubx/2022.10.11_224413.ubx"
+	String test_file = "/home/dominic/Bureau/ubx/2022.10.10_194410.ubx"; 			
+	
+	@Test
+	public void nrcanPppTest() throws Exception {
+		PppFile pppFileTest = NrcanPPP.fetchPPP(test_file);
+		
+		//Make sure pppFile contain positions
+		System.out.println("First position : "+ pppFileTest.getPositions().get(0).toString());
+		int pppSize = pppFileTest.getPositions().size()-1;
+		System.out.println("pppSize : "+pppSize);	
+		System.out.println("Last position  : "+ pppFileTest.getPositions().get(pppSize));	
+
+
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+		String dateTime= "2022-10-10 20:44:28.0";
+	    java.util.Date parsedDate = dateFormat.parse(dateTime);
+	    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+	    
+	    Double longitude = -68.5146847666667;
+	    Double latitude = 48.4788435500003; 
+	    Double height = -2.3756;
+	    Double sdLongitude = 1.1345;
+	    Double sdLatitude = 1.4777;
+	    Double sdHeight = 0.0048;
+	    Long numberOfSatellites = (long) 12;
+	    Double gdop = 1.1;
+		
+	    Position position= new Position( timestamp, longitude, latitude, height,sdLongitude,sdLatitude,sdHeight,numberOfSatellites,gdop);
+	    assertEquals(3600, pppFileTest.getPositions().size()-1);
+//	    ppp.getPositions().add(position);
+		;
+	}
+
+}
