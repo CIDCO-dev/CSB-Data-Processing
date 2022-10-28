@@ -11,7 +11,6 @@ public class Depth{
 	public Depth(Timestamp timestamp_, Double depth_) {
 		timestamp = timestamp_;
 		depth = depth_;
-		
 	}
 
 	public Timestamp getTimestamp() {

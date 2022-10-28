@@ -151,7 +151,6 @@ public class Hydroblock20 {
 		String row;
 		String[] split_row;	
 		
-		 
 		while ((row = bufferedReader.readLine()) !=null )  {
 			split_row= row.split("[;]{1}");
 			

@@ -24,58 +24,29 @@ public class ConversionTest {
 		assertTrue((12.76169-0.00001)< result_1 && result_1 <12.76169+0.00001);
 	}
 	
-	@Test
-	public void testConvertDMStoDecimalDegree_DegreesOutOfBound() {
-		try {
+	@Test (expected = IllegalArgumentException.class)
+	public void testConvertDMStoDecimalDegree_DegreesOutOfBoundHigher() {
 			Conversion.convertDMStoDecimalDegree(412.456, 28.234 , 6.456);
-			fail( "Didn't detect out of Bound degrees ");
-		}
-		catch (Exception e){
-//			this is good
-		}
+	}
+	@Test (expected = IllegalArgumentException.class)
+	public void testConvertDMStoDecimalDegree_DegreesOutOfBoundLower() {
+			Conversion.convertDMStoDecimalDegree(-361.0, 28.234 , 6.456);
 	}
 	
-	@Test
+	@Test (expected = IllegalArgumentException.class)
 	public void testConvertDMStoDecimalDegree_MinutesOutOfBound() {
-		try {
 			Conversion.convertDMStoDecimalDegree(12.456, 68.234 , 6.456);
-			fail( "Didn't detect out of Bound minutes" );
-		}
-		catch (Exception e) {
-//			this is good
-		}
 	}
-	
-	@Test
+	@Test (expected = IllegalArgumentException.class)
 	public void testConvertDMStoDecimalDegree_SecondesOutOfBound() {
-		try {
 			Conversion.convertDMStoDecimalDegree(12.456, 48.234 , 74.457);
-			fail( "Didn't detect out of Bound secondes" );
-		}
-		catch (IllegalArgumentException e) {
-//			this is good
-		}
 	}
-	@Test
+	@Test (expected = IllegalArgumentException.class)
 	public void testConvertDMStoDecimalDegree_NegativesSecondesValue() {
-		try {
 			Conversion.convertDMStoDecimalDegree(12.456, 8.234 , -12.457);
-			fail( "Didn't detect negative secondes values" );
-		}
-		catch (IllegalArgumentException e) {
-//			this is good
-		}
 	}
-	
-	@Test
+	@Test (expected = IllegalArgumentException.class)
 	public void testConvertDMStoDecimalDegree_NegativesMinutesValue() {
-		try {
 			Conversion.convertDMStoDecimalDegree(12.456, -42.234 , 12.457);
-			fail( "Didn't detect negative minutes values" );
-		}
-		catch (IllegalArgumentException e) {
-//			this is good
-		}
 	}
-
 }
