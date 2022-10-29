@@ -1,0 +1,10 @@
+package ca.cidco.csb.georeference;
+
+import java.util.ArrayList;
+
+public class Georeference {
+
+	public static  ArrayList<BathymetryPoint> georeference(ArrayList<Position> positions, ArrayList<Attitude> attitudes, ArrayList<Depth> depths){
+		
+	}
+}

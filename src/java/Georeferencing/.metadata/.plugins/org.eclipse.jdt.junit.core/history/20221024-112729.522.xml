@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="GnssQualifierTest" project="Georeferencing" tests="6" started="6" failures="0" errors="0" ignored="0">
+  <testsuite name="ca.cidco.csb.test.GnssQualifierTest" time="0.053">
+    <testcase name="testInvalidLongitude" classname="ca.cidco.csb.test.GnssQualifierTest" time="0.05"/>
+    <testcase name="testInvalidGdop" classname="ca.cidco.csb.test.GnssQualifierTest" time="0.001"/>
+    <testcase name="testValid" classname="ca.cidco.csb.test.GnssQualifierTest" time="0.0"/>
+    <testcase name="testInvalidHeight" classname="ca.cidco.csb.test.GnssQualifierTest" time="0.0"/>
+    <testcase name="testInvalidLatitude" classname="ca.cidco.csb.test.GnssQualifierTest" time="0.0"/>
+    <testcase name="testInvalidNsv" classname="ca.cidco.csb.test.GnssQualifierTest" time="0.001"/>
+  </testsuite>
+</testrun>

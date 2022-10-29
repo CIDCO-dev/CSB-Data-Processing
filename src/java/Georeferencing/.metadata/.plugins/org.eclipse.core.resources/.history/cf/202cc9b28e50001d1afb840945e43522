@@ -1,0 +1,25 @@
+package ca.cidco.csb.utilities;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+public class Interpolation {
+
+	
+    /**
+     * The interpolation algorithm.
+     *
+     * @param y1 composante y du premier point
+     * @param y2 composante y du second point
+     * @param x position en x à interpoler
+     * @param x1 composante x du premier point
+     * @param x2 composante x du second point
+     * @return composante y interpolée
+     */
+	
+    public static BigDecimal linearInterpolation(BigDecimal y1, BigDecimal y2, BigDecimal x, BigDecimal x1, BigDecimal x2) {
+        BigDecimal deltaTime = BigDecimalFactory.create((double) (x.doubleValue() - x1.doubleValue()) / (double) (x2.doubleValue() - x1.doubleValue()));
+        BigDecimal newValue = (y1.add(y2.subtract(y1).multiply(deltaTime))).setScale(20, RoundingMode.HALF_UP);
+        return newValue;
+    }
+}

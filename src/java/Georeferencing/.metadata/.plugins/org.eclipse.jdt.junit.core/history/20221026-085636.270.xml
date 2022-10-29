@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="NrcanPppTest" project="Georeferencing" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="ca.cidco.csb.test.NrcanPppTest" time="103.712">
+    <testcase name="nrcanPppConstructorTest" classname="ca.cidco.csb.test.NrcanPppTest" time="0.001"/>
+    <testcase name="obsToNrcanPppTest" classname="ca.cidco.csb.test.NrcanPppTest" time="103.711"/>
+  </testsuite>
+</testrun>

@@ -1,0 +1,39 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.cidco.csb.ppp.NrcanPPP;
+import ca.cidco.csb.ppp.PppFile;
+
+public class NrcanPppTest {
+
+//	String test_2 = "/home/dominic/Bureau/ubx/2022.10.11_224413.ubx"
+	String test_file = "/home/dominic/Bureau/ubx/2022.10.10_194410.ubx"; 			
+	
+	@Before
+	public void setUp() throws Exception {
+		PppFile pppFileTest = NrcanPPP.fetchPPP(test_file);
+		
+		//Make sure pppFile contain positions
+		System.out.println("First position : "+ pppFileTest.getPositions().get(0).toString());
+		int pppSize = pppFileTest.getPositions().size()-1;
+		System.out.println("Last position  : "+ pppFileTest.getPositions().get(pppSize));	
+	}
+
+//	@After
+//	public void tearDown() throws Exception {
+//		
+//		
+//	}
+
+	@Test
+	public void testFetchPPP() {
+		fail("pas implémenté encore")
+		;
+	}
+
+}

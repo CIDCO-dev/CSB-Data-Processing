@@ -1,0 +1,23 @@
+package ca.cidco.csb.surveydata;
+
+import java.sql.Timestamp;
+
+public class BaseSurveyData {
+	protected Timestamp timestamp;
+	protected Double value;
+	
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+	public Double getValue() {
+		return value;
+	}
+	public void setValue(Double value) {
+		this.value = value;
+	}
+	
+	
+}

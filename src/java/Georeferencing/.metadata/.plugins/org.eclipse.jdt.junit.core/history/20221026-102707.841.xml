@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun ca.cidco.csb.test.NrcanPppTest.posToPppFileTest" project="Georeferencing" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="posToPppFileTest" classname="ca.cidco.csb.test.NrcanPppTest" time="0.334"/>
+</testrun>

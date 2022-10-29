@@ -1,0 +1,41 @@
+package ca.cidco.csb.utilities;
+
+import java.util.ArrayList;
+
+import ca.cidco.csb.surveydata.Attitude;
+import ca.cidco.csb.surveydata.Depth;
+import ca.cidco.csb.surveydata.Position;
+import ca.cidco.csb.surveyplatform.hydroblock.Hydroblock20;
+
+public class LinearInterpolator {
+	
+	private ArrayList<Position> interpolatedPositions= new ArrayList<Position>();
+	private ArrayList<Attitude> interpolatedAttitudes = new ArrayList<Attitude>();
+	private ArrayList<Depth>	depths = new ArrayList<Depth>();
+	
+	public LinearInterpolator() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void interpolate(Hydroblock20 hydro) {
+		
+		ArrayList<Position> positions = new ArrayList<Position>();
+		positions = hydro.getPositions();
+		
+		ArrayList<Attitude> attitudes = new ArrayList<Attitude>();
+		attitudes = hydro.getAttitudes();
+
+		depths = hydro.getDepths();
+		
+		// TODO sort by timestamp
+		
+		int attitudeIndex =0;
+		int positionIndex =0;
+		
+		for (Depth depth : depths) {
+			
+		}
+		
+	}
+	
+}

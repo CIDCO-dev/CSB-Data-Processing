@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="InterpolationTest" project="Georeferencing" tests="13" started="13" failures="0" errors="0" ignored="0">
+  <testsuite name="ca.cidco.csb.test.InterpolationTest" time="0.048">
+    <testcase name="testLinearAngleInterpolationByTimePass360" classname="ca.cidco.csb.test.InterpolationTest" time="0.038"/>
+    <testcase name="testLinearAngleInterpolationByTimeNotPass360" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
+    <testcase name="testLinearInterpolation" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
+    <testcase name="testLinearInterpolationByTimeFirstTimestampsHigherThenTheLast" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
+    <testcase name="testLinearInterpolationByTimeEqualsTimestamps" classname="ca.cidco.csb.test.InterpolationTest" time="0.002"/>
+    <testcase name="testLinearInterpolationByTimeValid" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
+    <testcase name="testLinearInterpolationByTimeFirstTimestampsHigherThenInterpolate" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
+    <testcase name="testLinearAngleInterpolationByTimeFirstTimestampsHigherThenTheLast" classname="ca.cidco.csb.test.InterpolationTest" time="0.0"/>
+    <testcase name="testLinearAngleInterpolationByTimeTimestampDecale75Percent" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
+    <testcase name="testLinearAngleInterpolationByTimeNegativeAngle" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
+    <testcase name="testLinearAngleInterpolationByTimeFirstTimestampsHigherThenInterpolate" classname="ca.cidco.csb.test.InterpolationTest" time="0.0"/>
+    <testcase name="testLinearAngleInterpolationByTime180" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
+    <testcase name="testLinearAngleInterpolationByTimeEqualsTimestamps" classname="ca.cidco.csb.test.InterpolationTest" time="0.0"/>
+  </testsuite>
+</testrun>

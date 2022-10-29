@@ -1,0 +1,12 @@
+package ca.cidco.csb.surveydata;
+
+import java.sql.Timestamp;
+
+public class Depth{
+	
+	private Timestamp timestamp;
+	
+	private Double depth;
+	
+	
+}

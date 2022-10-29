@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ConversionTest" project="Georeferencing" tests="5" started="5" failures="0" errors="0" ignored="0">
+  <testsuite name="ca.cidco.csb.test.ConversionTest" time="0.006">
+    <testcase name="testConvertDMStoDecimalDegreeNegativesValue" classname="ca.cidco.csb.test.ConversionTest" time="0.002"/>
+    <testcase name="testConvertDMStoDecimalDegreeDegreesOutOfBound" classname="ca.cidco.csb.test.ConversionTest" time="0.0"/>
+    <testcase name="testConvertDMStoDecimalDegree" classname="ca.cidco.csb.test.ConversionTest" time="0.002"/>
+    <testcase name="testConvertDMStoDecimalDegreeSecondesOutOfBound" classname="ca.cidco.csb.test.ConversionTest" time="0.0"/>
+    <testcase name="testConvertDMStoDecimalDegreeMinutesOutOfBound" classname="ca.cidco.csb.test.ConversionTest" time="0.0"/>
+  </testsuite>
+</testrun>
