@@ -7,7 +7,7 @@ import sys
 
 class GnssQualification:
 
-    # Returns True/False if GNSS data is valid by examining quality metrics from the PPP pos file
+    # Returns statement of GNSS data qualification as valid for ERS, WLRS, or invalid
     def validateGnss(self,pos_file):
         print('GNSS_Processing: entering qualify_ppp_output() function')
 
