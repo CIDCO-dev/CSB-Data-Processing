@@ -37,7 +37,7 @@ public class Hydroblock20 {
 		sonarPath = null;
 		ubxPath = null;
 		
-		// TODO Read folder and find imu, sonar and ubx files
+		// Read folder and find imu, sonar and ubx files
         File directory = new File(dataPath);
         String[] fileList = directory.list();
         if (fileList == null) {
@@ -62,7 +62,6 @@ public class Hydroblock20 {
                 }
             }
         }
-        
 //        Read IMU File
 		if (imuPath!= null) {
 //			System.out.println("imuPath :" + imuPath);
@@ -143,9 +142,7 @@ public class Hydroblock20 {
 	}
 
 	protected void readSonar(String sonarPath) throws Exception{ 
-
 		File sonarFile = new File(sonarPath);
-
 		FileReader fileReaderData = new FileReader(sonarFile);
 		BufferedReader bufferedReader = new BufferedReader(fileReaderData);
 		String row;
@@ -168,11 +165,9 @@ public class Hydroblock20 {
 					
 					Double depth_ = Double.valueOf(split_row[1]); 
 
-
 				 // built Depth with each rows and add them to depths
 					Depth depth = new Depth(timestamp, depth_);
 					depths.add(depth);
-					
 				}
 				catch (Exception e) {
 					System.err.println("Can not built Depth with : "+row);

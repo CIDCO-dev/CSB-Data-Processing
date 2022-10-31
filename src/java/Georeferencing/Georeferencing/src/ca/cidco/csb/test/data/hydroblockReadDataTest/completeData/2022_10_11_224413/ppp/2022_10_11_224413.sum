@@ -3,7 +3,7 @@ HDR ADR GOVERNMENT OF CANADA, 588 BOOTH STREET ROOM 334, OTTAWA ONTARIO K1A 0Y7
 HDR TEL 343-292-6617
 HDR EMA geodeticinformation-informationgeodesique@nrcan-rncan.gc.ca
 VER 3.50.3 (2022-03-04)
-NOW 2022-10-28 18:33:40.00
+NOW 2022-10-31 13:47:48.00
 RNX 2022_10_11_224413.obs
 MKR UNKNOWN
 MOD KINEMATIC
@@ -11,7 +11,7 @@ BEG 2022-10-11 22:44:32.01
 END 2022-10-11 23:44:31.01
 INT 1.00
 EPO 3600 3600 3600
-EXE 26 sec
+EXE 36 sec
 OBS G C1C C2X L1C L2X
 OBS R C1C C2C L1C L2C
 PAR TYPE         SYS SIG SAT INIT      NOISE
@@ -35,16 +35,15 @@ PAR RX_USD       R   C1C     1.000e+10 1.000e+10
 PAR RX_USD       R   C2C     1.000e+10 1.000e+10
 PAR STEC         G       ALL 1.000e+10 1.000e-01
 PAR STEC         R       ALL 1.000e+10 1.000e-01
-SP3 dcr22312.sp3
-SP3 dcr22313.sp3
-CLK dcr22312.clk
-CLK dcr22313.clk
-ERP dcr22312.erp
-ERP dcr22313.erp
-BIA dcr22312.bia
-BIA dcr22313.bia
-ADV dcr22312.adv
-ADV dcr22313.adv
+SP3 dcf22312.sp3
+SP3 dcf22313.sp3
+CLK dcf22312.clk
+CLK dcf22313.clk
+ERP dcf22317.erp
+BIA dcf22312.bia
+BIA dcf22313.bia
+ADV dcf22312.adv
+ADV dcf22313.adv
 ATX igs14_2223_nrcan.atx
 VMF [ah|aw|zh|zw]22284.h18
 VMF [ah|aw|zh|zw]22285.h00
@@ -82,15 +81,15 @@ RES R C2C   0.975
 RES R L1C   0.006
 RES R L2C   0.003
 RES ELV        G_C1C   G_C2X   G_L1C   G_L2X   R_C1C   R_C2C   R_L1C   R_L2C 
-RES ELV  5.0   1.669   0.932   0.010   0.006   1.632   1.390   0.010   0.006 
-RES ELV 15.0   2.065   1.667   0.008   0.005   1.456   1.382   0.008   0.005 
-RES ELV 25.0   0.788   1.119   0.006   0.004   0.782   0.910   0.005   0.003 
-RES ELV 35.0   0.750   0.932   0.005   0.003   0.638   0.798   0.005   0.003 
-RES ELV 45.0   0.900   1.148   0.004   0.003   0.768   0.892   0.004   0.002 
-RES ELV 55.0   1.309   1.306   0.006   0.003   0.834   0.533   0.003   0.002 
-RES ELV 65.0   0.712   1.266   0.003   0.002   0.760   0.569   0.003   0.002 
-RES ELV 75.0   0.719   0.926   0.003   0.002   0.485   0.564   0.003   0.002 
-RES ELV 85.0   0.840   1.505   0.003   0.002   0.000   0.000   0.000   0.000 
+RES ELV  5.0   1.672   0.931   0.010   0.006   1.632   1.389   0.010   0.006 
+RES ELV 15.0   2.068   1.669   0.008   0.005   1.457   1.383   0.008   0.005 
+RES ELV 25.0   0.784   1.118   0.006   0.004   0.782   0.910   0.005   0.003 
+RES ELV 35.0   0.749   0.932   0.005   0.003   0.639   0.799   0.005   0.003 
+RES ELV 45.0   0.904   1.149   0.004   0.003   0.768   0.892   0.004   0.002 
+RES ELV 55.0   1.309   1.308   0.006   0.003   0.834   0.533   0.003   0.002 
+RES ELV 65.0   0.712   1.268   0.003   0.002   0.761   0.569   0.003   0.002 
+RES ELV 75.0   0.710   0.932   0.003   0.002   0.485   0.564   0.003   0.002 
+RES ELV 85.0   0.837   1.498   0.003   0.002   0.000   0.000   0.000   0.000 
 FLG PRN    EPO    TRK    CLK    EPH    ELV    YAW    DCB    SLP    MIS    RES
 FLG C08      0      0      0      0      0      0      0      0      0      0
 FLG C13      0      0      0      0      0      0      0      0      0      0
@@ -137,7 +136,7 @@ FLG R08   3600      0      0      0      0      0      0      0      0      0
 FLG R09   3600      0      0      0      0      0      0      0      0      0
 FLG R10      0   3600      0      0      0      0      0      0      0      0
 FLG R16      0    332      0      0      0      0      0      0      0      0
-FLG R17   3589     11      0      0      0      0      0     76      0      0
+FLG R17   3589     11      0      0      0      0      0     77      0      0
 FLG R18   3600      0      0      0      0      0      0      0      0      0
 FLG R19    217    127      0      0    932   1789      0      2      0      0
 FLG R23      0     16      8      0      0      0      0      0      0      0
@@ -148,5 +147,5 @@ FLG S36      0      0      0      0      0      0      0      0      0      0
 FLG CXX      0      0      0      0      0      0      0      0      0      0
 FLG EXX      0      0      0      0      0      0      0      0      0      0
 FLG GXX  22498  12479      0      0   6710      0      0    349      0      0
-FLG RXX  19146   7973      8      0   1829   1789      0    109      0      0
+FLG RXX  19146   7973      8      0   1829   1789      0    110      0      0
 FLG SXX      0      0      0      0      0      0      0      0      0      0

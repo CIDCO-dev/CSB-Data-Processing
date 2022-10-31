@@ -116,93 +116,57 @@ public class InterpolationTest {
 		assertTrue(Interpolation.linearInterpolationByTime( y1Latitude.doubleValue(), y2Latitude.doubleValue(), ts, tsBefore, tsAfter)==48.625);
 	}
 	
-	@Test
-	public void testLinearInterpolationByTimeEqualsTimestamps() throws Exception{
+	@Test (expected = Exception.class)
+	public void testLinearInterpolationByTimeEqualsTimestamps() throws Exception {
 		Timestamp ts = buildTimestamp(dateTime2);
 		Timestamp tsBefore = buildTimestamp(dateTime1);
 		Timestamp tsAfter = buildTimestamp(dateTime5);
 		
-		try {
-			Interpolation.linearInterpolationByTime( y1Latitude.doubleValue(), y2Latitude.doubleValue(), ts, tsBefore, tsAfter);
-			fail( "Didn't detect timestamp Before equal timestamp After " );
-		}
-		catch (Exception e) {
-//			this is good
-		}
+		Interpolation.linearInterpolationByTime( y1Latitude.doubleValue(), y2Latitude.doubleValue(), ts, tsBefore, tsAfter);
 	}
-	@Test
+	@Test (expected = Exception.class)
 	public void testLinearInterpolationByTimeFirstTimestampsHigherThenInterpolate() throws Exception {
 		Timestamp ts = buildTimestamp(dateTime1);
 		Timestamp tsBefore = buildTimestamp(dateTime2);
 		Timestamp tsAfter = buildTimestamp(dateTime3);
 		
-		try {
-			Interpolation.linearInterpolationByTime( y1Latitude.doubleValue(), y2Latitude.doubleValue(), ts, tsBefore, tsAfter);
-			fail( "Didn't detect timestamp Before is higher than interpolation timestamp " );
-		}
-		catch (Exception e) {
-//				this is good
-		}
+		Interpolation.linearInterpolationByTime( y1Latitude.doubleValue(), y2Latitude.doubleValue(), ts, tsBefore, tsAfter);
 	}
 		
-	@Test
+	@Test (expected = Exception.class)
 	public void testLinearInterpolationByTimeFirstTimestampsHigherThenTheLast() throws Exception {
 		Timestamp ts = buildTimestamp(dateTime2);
 		Timestamp tsBefore = buildTimestamp(dateTime3);
 		Timestamp tsAfter = buildTimestamp(dateTime1);
 		
-		try {
-			Interpolation.linearInterpolationByTime( y1Latitude.doubleValue(), y2Latitude.doubleValue(), ts, tsBefore, tsAfter);
-			fail( "Didn't detect timestamp Before is higher than timestamp after" );
-		}
-		catch (Exception e) {
-//				this is good
-		}
+		Interpolation.linearInterpolationByTime( y1Latitude.doubleValue(), y2Latitude.doubleValue(), ts, tsBefore, tsAfter);
 	}
 	
-	@Test
+	@Test (expected = Exception.class)
 	public void testLinearAngleInterpolationByTimeEqualsTimestamps() throws Exception {
 		Timestamp l= 	new Timestamp(1527636114); 
 		Timestamp t1= 	new Timestamp(1527776114);
 		Timestamp t2 = 	new Timestamp(1527776114);
 			
-		try {
-			Interpolation.linearAngleInterpolationByTime(47.997475, 48.005745, l, t1, t2);
-			fail( "Didn't detect timestamp Before equal timestamp After " );
-		}
-		catch (Exception e) {
-//			this is good
-		}
+		Interpolation.linearAngleInterpolationByTime(47.997475, 48.005745, l, t1, t2);
 	}
 	
-	@Test
+	@Test (expected = Exception.class)
 	public void testLinearAngleInterpolationByTimeFirstTimestampsHigherThenTheLast() throws Exception {
 		Timestamp l= 	new Timestamp(1527636114); 
 		Timestamp t1= 	new Timestamp(1527778114);
 		Timestamp t2 = 	new Timestamp(1527776114);
 			
-		try {
-			Interpolation.linearAngleInterpolationByTime(47.997475, 48.005745, l, t1, t2);
-			fail( "Didn't detect timestamp Before is higher than timestamp after" );
-		}
-		catch (Exception e) {
-//			this is good
-		}
+		Interpolation.linearAngleInterpolationByTime(47.997475, 48.005745, l, t1, t2);
 	}
 	
-	@Test
+	@Test (expected = Exception.class)
 	public void testLinearAngleInterpolationByTimeFirstTimestampsHigherThenInterpolate() throws Exception {
 		Timestamp l= 	new Timestamp(1527636114); 
 		Timestamp t1= 	new Timestamp(1527778114);
 		Timestamp t2 = 	new Timestamp(1527779114);
 			
-		try {
-			Interpolation.linearAngleInterpolationByTime(47.997475, 48.005745, l, t1, t2);
-			fail( "Didn't detect timestamp Before is higher than interpolation timestamp " );
-		}
-		catch (Exception e) {
-//			this is good
-		}
+		Interpolation.linearAngleInterpolationByTime(47.997475, 48.005745, l, t1, t2);
 	}
 	
 	@Test
@@ -256,19 +220,13 @@ public class InterpolationTest {
 //		assertTrue(5.0 == Interpolation.linearAngleInterpolationByTime(-5.00, -345.00, l, t1, t2));
 	}
 	
-	@Test
-	public void testLinearAngleInterpolationByTime180() {
+	@Test (expected = Exception.class)
+	public void testLinearAngleInterpolationByTime180() throws Exception {
 		Timestamp l= 	new Timestamp(1527766114); 
 		Timestamp t1= 	new Timestamp(1527756114);
 		Timestamp t2 = 	new Timestamp(1527776114);
 		
-		try {
-			Interpolation.linearAngleInterpolationByTime(90.00, -90.00, l, t1, t2);
-			fail( "Didn't detect angle 180 degrees may have two possible answers" );
-		}
-		catch (Exception e) {
-//			this is good
-		}
+		Interpolation.linearAngleInterpolationByTime(90.00, -90.00, l, t1, t2);
 	}
 	
 	@Test

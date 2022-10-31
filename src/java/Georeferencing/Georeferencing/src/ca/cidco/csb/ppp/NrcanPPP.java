@@ -21,7 +21,7 @@ import ca.cidco.csb.surveydata.Position;
 
 public class NrcanPPP {
     //Path to NRCAN script	
-	private static String pppPath= "/home/dominic/eclipse_ubx/csrs_ppp_auto_v1_6_1/csrs_ppp_auto.py";
+	private static String nrcanScriptPath= "scripts/csrs_ppp_auto.py";
 
 	
 	private String ubxFilePath = "";
@@ -95,7 +95,7 @@ public class NrcanPPP {
 		oldObs.renameTo(newObs);
 		
 		//Send it
-		ProcessBuilder processBuilderPPP = new ProcessBuilder("python3", pppPath,"--user_name",nrcanUsername, "--rnx", newObsFileName, "--results_dir", directoryPpp.getAbsolutePath());
+		ProcessBuilder processBuilderPPP = new ProcessBuilder("python3", nrcanScriptPath,"--user_name",nrcanUsername, "--rnx", newObsFileName, "--results_dir", directoryPpp.getAbsolutePath());
 		processBuilderPPP.inheritIO();
 		Process processPPP= processBuilderPPP.start();
 		processPPP.waitFor();		
@@ -206,8 +206,8 @@ public class NrcanPPP {
 		return ppp;
 	}
 	
-	public static String getPppPath() {
-		return pppPath;
+	public static String getNrcanScriptPath() {
+		return nrcanScriptPath;
 	}
 	
 	public String getUbxFilePath() {
