@@ -8,6 +8,7 @@ Date: October 12, 2022
 Updates:
 1. TF - Oct 19, 2022: Added timestamp sorting and fixed handling of missing data at beginning/end of files.
 2. TF - Oct 20, 2022: Added gap checks and IMU data handling.
+3. TF - Oct 27, 2022: Fixed heading interpolation and added conversion from dms to dd for latitude and longitude.
 """
 
 # Import Libraries
@@ -83,14 +84,29 @@ class GnssInterpolation:
         sonar_contents = sonar_contents.sort_values('Timestamp')
         imu_contents = imu_contents.sort_values('Timestamp')
 
+        # convert lat & lon DMS to DD
+        lat_list = []
+        lon_list = []
+
+        counter = 0
+        for row in range(len(gnss_contents)):
+            lat_dd = float(gnss_contents['LATDD'].values[counter]) + (float(gnss_contents['LATMN'].values[counter]) / 60) + (float(gnss_contents['LATSS'].values[counter]) / 3600)
+            lon_dd = float(gnss_contents['LONDD'].values[counter]) + (float(gnss_contents['LONMN'].values[counter]) / 60) + (float(gnss_contents['LONSS'].values[counter]) / 3600)
+            lat_list.append(lat_dd)
+            lon_list.append(lon_dd)
+            counter += 1
+
+        gnss_contents['latitude'] = np.array(lat_list)
+        gnss_contents['longitude'] = np.array(lon_list)
+
         # initialize lists
-        x = []  # latitude (UTM, Zone in gnss_contents)
-        y = []  # longitude (UTM, Zone in gnss_contents)
-        z = []  # height (CGVD2013)
-        h = []  # heading (deg)
-        p = []  # pitch (deg)
-        r = []  # roll (deg)
-        s = []  # sounding (m)
+        x = []  # latitude
+        y = []  # longitude
+        z = []  # ellipsoidal height
+        h = []  # heading
+        p = []  # pitch
+        r = []  # roll
+        s = []  # sounding
         timestamps = []
 
         t = 0  # loop counter
@@ -116,21 +132,21 @@ class GnssInterpolation:
             ta1 = imu_contents[imu_contents['Timestamp'] > ts0].min()
             ta1 = ta1['Timestamp']
 
-            # latitude
-            x0 = gnss_contents.loc[gnss_contents['Timestamp'] == tp0, 'UTM_EASTING'].item()
-            x1 = gnss_contents.loc[gnss_contents['Timestamp'] == tp1, 'UTM_EASTING'].item()
+            # latitude ## NEED TO CONVERT DEG - MM - SS.SSSSS to Decimal Degrees ##
+            x0 = gnss_contents.loc[gnss_contents['Timestamp'] == tp0, 'longitude'].item()
+            x1 = gnss_contents.loc[gnss_contents['Timestamp'] == tp1, 'longitude'].item()
 
-            # longitude
-            y0 = gnss_contents.loc[gnss_contents['Timestamp'] == tp0, 'UTM_NORTHING'].item()
-            y1 = gnss_contents.loc[gnss_contents['Timestamp'] == tp1, 'UTM_NORTHING'].item()
+            # longitude ## NEED TO CONVERT DEG - MM - SS.SSSSS to Decimal Degrees ##
+            y0 = gnss_contents.loc[gnss_contents['Timestamp'] == tp0, 'latitude'].item()
+            y1 = gnss_contents.loc[gnss_contents['Timestamp'] == tp1, 'latitude'].item()
 
             # height
-            z0 = gnss_contents.loc[gnss_contents['Timestamp'] == tp0, 'H:CGVD2013(m)'].item()
-            z1 = gnss_contents.loc[gnss_contents['Timestamp'] == tp1, 'H:CGVD2013(m)'].item()
+            z0 = gnss_contents.loc[gnss_contents['Timestamp'] == tp0, 'HGT(m)'].item()
+            z1 = gnss_contents.loc[gnss_contents['Timestamp'] == tp1, 'HGT(m)'].item()
 
             # heading
-            h0 = imu_contents.loc[imu_contents['Timestamp'] == ta0, 'Heading'].item()
-            h1 = imu_contents.loc[imu_contents['Timestamp'] == ta1, 'Heading'].item()
+            h0 = float(imu_contents.loc[imu_contents['Timestamp'] == ta0, 'Heading'].item())
+            h1 = float(imu_contents.loc[imu_contents['Timestamp'] == ta1, 'Heading'].item())
 
             # pitch
             p0 = imu_contents.loc[imu_contents['Timestamp'] == ta0, 'Pitch'].item()
@@ -158,16 +174,31 @@ class GnssInterpolation:
             dx = float(x1) - float(x0)
             dy = float(y1) - float(y0)
             dz = float(z1) - float(z0)
-            dh = float(h1) - float(h0)
+            #dh = float(h1) - float(h0)
             dp = float(p1) - float(p0)
             dr = float(r1) - float(r0)
 
             xs0 = float(x0) + (dx * (dt_ps / dtp))
             ys0 = float(y0) + (dy * (dt_ps / dtp))
             zs0 = float(z0) + (dz * (dt_ps / dtp))
+
+            # deal with heading
+            if 350 <= h0 <= 360 and 0 <= h1 <= 10:
+                h1 = h1 + 360
+                #return h1
+            if 0 <= h0 <= 10 and 350 <= h1 <= 360:
+                h0 = h0 + 360
+                #return h0
+
+            dh = float(h1) - float(h0)
             hs0 = float(h0) + (dh * (dt_as / dta))
-            ps0 = float(y0) + (dp * (dt_as / dta))
-            rs0 = float(z0) + (dr * (dt_as / dta))
+
+            if hs0 > 360:
+                hs0 = hs0 - 360
+                #return hs0
+
+            ps0 = float(p0) + (dp * (dt_as / dta))
+            rs0 = float(r0) + (dr * (dt_as / dta))
             s0 = sonar_contents.loc[sonar_contents['Timestamp'] == ts0, 'Depth'].item()
 
             x.append(xs0)
@@ -185,13 +216,14 @@ class GnssInterpolation:
                 print('GNSS and IMU interpolation completed successfully')
                 break
 
-        ers = pd.DataFrame({'Timestamp': np.array(timestamps), 'UTM_EASTING': np.array(x), 'UTM_NORTHING': np.array(y),
-                            'H:CGVD2013(m)': np.array(z), 'Heading': np.array(h), 'Pitch': np.array(p),
+        ers = pd.DataFrame({'Timestamp': np.array(timestamps), 'LONSS': np.array(x), 'LATSS': np.array(y),
+                            'HGT(m)': np.array(z), 'Heading': np.array(h), 'Pitch': np.array(p),
                             'Roll': np.array(r), 'Depth': np.array(s)})
 
         return ers.to_csv('er_soundings.csv', header=True, index=False)
 
 
+#
 # MAIN
 
 # get pos file path and sonar file path as CLI parameter
