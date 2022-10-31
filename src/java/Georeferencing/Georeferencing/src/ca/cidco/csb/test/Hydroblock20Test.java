@@ -20,8 +20,11 @@ public class Hydroblock20Test {
 	String dataPathValid = "data/hydroblockReadDataTest/completeData";
 	
 	String dataPathNoSonarFile = "data/hydroblockReadDataTest/noSonar/";
+	String dataPathEmptySonarFile = "data/hydroblockReadDataTest/emptySonarFile/";
 	String dataPathNoUbxFile = "data/hydroblockReadDataTest/noUbx/";
+	String dataPathEmptyImuFile = "data/hydroblockReadDataTest/emptyImuFile/";
 	String dataPathNoImuFile = "data/hydroblockReadDataTest/noImu/";
+	String dataEmptyDirectory = "data/hydroblockReadDataTest/emptyDirectory/";
 
 	@Test
 	public void ReadValidTest() throws Exception {
@@ -44,42 +47,39 @@ public class Hydroblock20Test {
 		assertTrue(hydro.getGnss().isWlrsValid());
 	}
 	
-	@Test
-	public void ReadPathWithoutSonarFileTest() {
-		
-		try {
-			hydro.read(dataPathNoSonarFile);
-			fail("No sonar file must throw exception");
-		}
-		catch (Exception e){
-		//	this is good
-		}
+	@Test (expected = Exception.class)
+	public void ReadEmptyDirectoryPathTest() throws Exception {
+		hydro.read(dataEmptyDirectory);
+	}
+
+	@Test (expected = Exception.class)
+	public void ReadInvalidPathTest() throws Exception {
+		hydro.read("data/hydroblockReadDataTest/notExistingFiles/");
 	}
 	
-	@Test
-	public void ReadPathWithoutImuFileTest() {
-		
-		try {
-			hydro.read(dataPathNoImuFile);
-			fail("No imu file must throw exception");
-		}
-		catch (Exception e){
-		//	this is good
-		}
+	@Test (expected = Exception.class)
+	public void ReadPathWithoutSonarFileTest() throws Exception {
+		hydro.read(dataPathNoSonarFile);
 	}
 	
-	@Test
-	public void ReadPathWithoutUbxFileTest() {
-		
-		try {
-			hydro.read(dataPathNoUbxFile);
-			fail("No ubx file must throw exception");
-		}
-		catch (Exception e){
-		//	this is good
-		}
+	@Test (expected = Exception.class)
+	public void ReadPathEmptySonarFileTest() throws Exception {
+		hydro.read(dataPathEmptySonarFile);
 	}
 	
+	@Test (expected = Exception.class)
+	public void ReadPathWithoutImuFileTest() throws Exception {
+		hydro.read(dataPathNoImuFile);
+	}
+	
+	@Test (expected = Exception.class)
+	public void ReadPathEmptyImuFileTest() throws Exception {
+		hydro.read(dataPathEmptyImuFile);
+	}
+	@Test (expected = Exception.class)
+	public void ReadPathWithoutUbxFileTest() throws Exception {
+		hydro.read(dataPathNoUbxFile);
+	}
 	
 	@Test
 	public void setPositionsTest() throws Exception {

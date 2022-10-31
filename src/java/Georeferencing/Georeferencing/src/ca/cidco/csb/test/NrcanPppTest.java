@@ -28,6 +28,13 @@ public class NrcanPppTest {
 		assertTrue( nrcan.getDirectoryRinexName().equals("data/ubx/2022_10_10_194410/Rinex"));
 		assertTrue(nrcan.getPppDirectoryName().equals("data/ubx/2022_10_10_194410/ppp"));
 	}
+	
+	@Test
+	public void nrcanGetNrcanScriptPath() throws Exception {
+		NrcanPPP nrcan = new NrcanPPP(test_ubxPath);
+		
+		assertTrue( nrcan.getNrcanScriptPath() == "scripts/csrs_ppp_auto.py");
+	}
 
 	
 	@Test
