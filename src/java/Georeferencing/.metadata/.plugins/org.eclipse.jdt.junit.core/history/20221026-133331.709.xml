@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="InterpolationTest" project="Georeferencing" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="ca.cidco.csb.test.InterpolationTest" time="0.037">
-    <testcase name="testLinearInterpolation" classname="ca.cidco.csb.test.InterpolationTest" time="0.035"/>
-    <testcase name="testLinearInterpolationByTime" classname="ca.cidco.csb.test.InterpolationTest" time="0.002"/>
-  </testsuite>
-</testrun>

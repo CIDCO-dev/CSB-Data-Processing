@@ -21,9 +21,8 @@ public class Hydroblock20 {
 	private String imuPath = "";
 	private String sonarPath = "";
 	private String ubxPath = "";
-	private GnssQualifier gnss = new GnssQualifier();  //to use methods isWlrsValid() & isErsValid()
 
-	public Hydroblock20() { 		
+	public Hydroblock20() { 	
 	}
 	
 	public void read(String dataPath) throws Exception {
@@ -80,12 +79,13 @@ public class Hydroblock20 {
             throw new Exception("No sonar file in the directory");
 		}
 		
+		
+//		TODO read GNSS File
+		
 //		Process and read UBX File
 		if (ubxPath!=null) {
-			NrcanPPP nrcan = new NrcanPPP(ubxPath);
-			PppFile pppFile = nrcan.fetchPPP("dominic.gonthier@cidco.ca");
-			positions= pppFile.getPositions();
-			gnss.validate(pppFile);
+//			caller can use ubxFile
+			
 		}
 		else {
 			throw new Exception("No ubx file in the directory");
@@ -93,6 +93,18 @@ public class Hydroblock20 {
 	}
 	
 	
+	public String getImuPath() {
+		return imuPath;
+	}
+
+	public String getSonarPath() {
+		return sonarPath;
+	}
+
+	public String getUbxPath() {
+		return ubxPath;
+	}
+
 	protected void readImu(String imuPath) throws Exception{ 
 
 		File imuFile = new File(imuPath);
@@ -200,10 +212,6 @@ public class Hydroblock20 {
 
 	public ArrayList<Depth> getDepths() {
 		return depths;
-	}
-	
-	public GnssQualifier getGnss() {
-		return gnss;
 	}
 	
 }

@@ -33,8 +33,6 @@ public class Hydroblock20Test {
 		assertTrue(hydro.getAttitudes().size() ==0);
 		assertTrue(hydro.getPositions().size()==0);
 		assertTrue(hydro.getDepths().size()==0);
-		assertFalse(hydro.getGnss().isErsValid());
-		assertFalse(hydro.getGnss().isWlrsValid());
 		
 		hydro.read(dataPathValid);
 		
@@ -43,8 +41,6 @@ public class Hydroblock20Test {
 		assertTrue(hydro.getPositions().size()>0);
 		assertTrue(hydro.getDepths().size()>0);
 		// must be valid for ERS // WLRS
-		assertTrue(hydro.getGnss().isErsValid());
-		assertTrue(hydro.getGnss().isWlrsValid());
 	}
 	
 	@Test (expected = Exception.class)

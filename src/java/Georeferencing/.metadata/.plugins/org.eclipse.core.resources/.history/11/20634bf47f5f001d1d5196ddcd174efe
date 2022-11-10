@@ -1,0 +1,41 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import org.apache.commons.math3.linear.RealVector;
+import org.junit.Test;
+
+import ca.cidco.csb.utilities.Geodesy;
+
+public class GeodesyTest {
+
+	Geodesy geo = new Geodesy();
+	
+	
+	@Test
+	public void testLatLonH_2_ECEF() {
+		System.err.println(geo.LatLonH_2_ECEF(45.025, -51.24, -12.0));
+		
+//		x: 1809321.3190287973	y: -2665911.265863523	z: 5486065.399538532
+		
+//		-84.961435, -63.434949, -6399401.78  http://www.sysense.com/products/ecef_lla_converter/index.html
+		
+//		https://www.oc.nps.edu/oc2902w/coord/llhxyz.htm
+//		X : 2827.046   km
+//		Y : -3521.167   km
+//		Z : 4489.304   km
+		fail("not implemented");
+
+	}
+	
+	@Test
+	public void testLLH2ecef() {
+//		System.err.println(geo.LatLonH_2_ECEF(34.12771308,-117.82545897,250.640));
+		System.err.println(geo.LLH_2_ECEF(45.025, -51.24, -12.0));
+		RealVector vector = geo.LLH_2_ECEF(45.025, -51.24, -12.0);
+		assertTrue (vector.getEntry(0)<2827.046+1 && vector.getEntry(0)>2827.046 -1);
+		
+	}
+	
+
+}

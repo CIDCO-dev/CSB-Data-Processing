@@ -48,39 +48,7 @@ public class Georeferencing {
 
 	}
 	
-//	
-//	// Geographic coordinates (Lat, Lon, h) TO ECEF
-//	/* This function is used to transform ECEF geographic coordinates to cartesian.
-//	Input data:
-//	- lat, lon, h: latitude, longitude and ellipsoidal height (rad), (rad) and (m)
-//	Output data:
-//	- x, y, z: transformed cartesian coordinates (m)
-//	*/
-//
-//	/**
-//	 * Transform ECEF geographic coordinates to cartesian
-//	 * 
-//	 * @param x Cartesian x coordinate
-//	 * @param y Cartesian y coordinate
-//	 * @param z Cartesian z coordinate
-//	 * @param lat The ECEF latitude
-//	 * @param lon The ECEF longitude
-//	 * @param h The ECEF ellipsoidal height
-//	 * @param a half of the ellipsoidal axe reference
-//	 * @param e ellipsoidal first eccentricity reference
-//	 */
-	public void LatLonH_2_ECEF(double lat, double lon, double h, double a, double e){
-		
-//		// Transformation of lon, lat, h to TRF
-		double N = a/Math.sqrt( 1 - Math.pow(e*Math.sin(lat),2) );
-//		System.out.println("N: "+N );
 
-		x = (N + h)*Math.cos(lat)*Math.cos(lon);
-		y = (N + h)*Math.cos(lat)*Math.sin(lon);
-		z = (N*(1-Math.pow(e,2)) + h)*Math.sin(lat);
-
-		System.out.println("x: "+x +"	y: "+y+"	z: "+z);
-	}
 //	
 //	
 //    

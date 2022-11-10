@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="Hydroblock20Test" project="Georeferencing" tests="3" started="3" failures="0" errors="0" ignored="0">
-  <testsuite name="ca.cidco.csb.test.Hydroblock20Test" time="306.033">
-    <testcase name="testRead2" classname="ca.cidco.csb.test.Hydroblock20Test" time="158.19"/>
-    <testcase name="testSetPositions" classname="ca.cidco.csb.test.Hydroblock20Test" time="0.0"/>
-    <testcase name="ReadValidTest" classname="ca.cidco.csb.test.Hydroblock20Test" time="147.843"/>
-  </testsuite>
-</testrun>

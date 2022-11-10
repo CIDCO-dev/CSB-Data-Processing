@@ -49,4 +49,29 @@ public class ConversionTest {
 	public void testConvertDMStoDecimalDegree_NegativesMinutesValue() {
 			Conversion.convertDMStoDecimalDegree(12.456, -42.234 , 12.457);
 	}
+	
+	@Test
+	public void testDeg2Rad() throws Exception {
+		double result =Conversion.deg2Rad(180);
+		assertTrue(result==Conversion.PI);
+	}
+
+	@Test
+	public void testNegativeDeg2Rad() throws Exception {
+		double result =Conversion.deg2Rad(-180);
+		assertTrue(result==-Conversion.PI);
+	}
+	
+	@Test
+	public void testRad2Deg() throws Exception {
+		double result =Conversion.rad2Deg(Conversion.PI/2);
+		assertTrue(result==90);
+	}
+
+	@Test
+	public void testNegativeRad2Deg() throws Exception {
+		double result =Conversion.rad2Deg(-Conversion.PI/2);
+		assertTrue(result==-90);
+	}
+	
 }

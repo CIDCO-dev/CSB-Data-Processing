@@ -5,11 +5,17 @@ import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.linear.RealVector;
+
 import ca.cidco.csb.utilities.Conversion;
+import ca.cidco.csb.utilities.Geodesy;
 import ca.cidco.csb.utilities.Interpolation;
+import ca.cidco.csb.MatrixXd;
 import ca.cidco.csb.surveydata.Attitude;
 import ca.cidco.csb.surveydata.Depth;
 import ca.cidco.csb.surveydata.Position;
+import java.util.Vector;
 
 public abstract class Georeference {
 
@@ -64,5 +70,56 @@ public abstract class Georeference {
 		}
 		return bathymetryPoints;
 	}
+	
+	// Merging: Pn + rn + Cbin*abi
+	/* This function is used to merge all data to get soundings coordinated in TRF
+	Input data:
+	- rn1, rn2, rn3: seafloor to the SBES acoustic center vector coordinated in n-frame
+	- position: to get latitude and longitude in (rad) and ellipsoidal height in (m) if ERS or 0 otherwise.
+	- attitude: to get Roll, Pitch, Heading in (rad)
+	- abi: lever arms (m)
+	- a, e: WGS84 ellipsoid Parameters
+	Output data:
+	- xMerge, yMerge, zMerge: soundings coordinated in TRF-frame
+	*/
+	public double[] merging( double rn1, double rn2, double rn3, Position position, Attitude attitude, RealVector abi, double a, double e){
+		double lat= position.getLatitude();
+		double lon= position.getLongitude();
+		double h= position.getHeight();
+		double Roll = attitude.getRoll();
+		double Pitch = attitude.getPitch();
+		double Heading= attitude.getHeading();
+		
+		Geodesy geo = new Geodesy();
+		
+		// Lat, lon, h to TRF: Px, Py, Pz
+		RealVector ecef= geo.LLH_2_ECEF(lat, lon, h);
+		double pointX=ecef.getEntry(0);
+		double pointY=ecef.getEntry(1);
+		double pointZ=ecef.getEntry(2);
+		// Transformation of rn1, rn2 and rn3 to TRF: sx, sy, sz
+		RealVector trf = geo.Nav_2_ECEF(lat, lon, rn1, rn2, rn3);
+		double sx = trf.getEntry(0);
+		double sy = trf.getEntry(1);
+		double sz = trf.getEntry(2);
+
+		// Computation Cbin*abi
+		MatrixXd Cbin_NED; 
+		Cbin_NED.initializeMatrixXd(Roll, Pitch, Heading);
+		RealVector an = Cbin_NED*abi; 								// TODO multiplication Matrix par Vecteur 
+		// Transformation of an to aTRF
+		RealVector aTRF = geo.Nav_2_ECEF(lat, lon, an.getEntry(0), an.getEntry(1), an.getEntry(2));
+		double axTRF = aTRF.getEntry(0);
+		double ayTRF = aTRF.getEntry(1);
+		double azTRF = aTRF.getEntry(2);
+
+		// Merge of data
+		double xMerge = pointX + sx + axTRF;
+		double yMerge = pointY + sy + ayTRF;
+		double zMerge = pointZ + sz + azTRF;
+		
+		return new double[]{xMerge, yMerge, zMerge};
+	}
+	
 	protected abstract BathymetryPoint georeference(Position position, Attitude attitude, Depth depth);
 }

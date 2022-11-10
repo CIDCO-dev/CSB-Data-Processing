@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="InterpolationTest" project="Georeferencing" tests="5" started="5" failures="0" errors="0" ignored="0">
-  <testsuite name="ca.cidco.csb.test.InterpolationTest" time="0.039">
-    <testcase name="testLinearInterpolation" classname="ca.cidco.csb.test.InterpolationTest" time="0.034"/>
-    <testcase name="testLinearInterpolationByTimeFirstTimestampsHigherThenTheLast" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
-    <testcase name="testLinearInterpolationByTimeEqualsTimestamps" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
-    <testcase name="testLinearInterpolationByTimeValid" classname="ca.cidco.csb.test.InterpolationTest" time="0.002"/>
-    <testcase name="testLinearInterpolationByTimeFirstTimestampsHigherThenInterpolate" classname="ca.cidco.csb.test.InterpolationTest" time="0.001"/>
-  </testsuite>
-</testrun>

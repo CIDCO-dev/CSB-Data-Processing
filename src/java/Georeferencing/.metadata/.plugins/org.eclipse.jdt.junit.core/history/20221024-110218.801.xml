@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="GnssQualifierTest" project="Georeferencing" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="ca.cidco.csb.test.GnssQualifierTest" time="0.043">
-    <testcase name="testValidate" classname="ca.cidco.csb.test.GnssQualifierTest" time="0.043"/>
-  </testsuite>
-</testrun>

@@ -1,0 +1,14 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class GeodesyTest {
+
+	@Test
+	public void testLatLonH_2_ECEF() {
+		fail("Not yet implemented");
+	}
+
+}

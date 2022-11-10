@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="NrcanPppTest" project="Georeferencing" tests="2" started="2" failures="0" errors="0" ignored="0">
-  <testsuite name="ca.cidco.csb.test.NrcanPppTest" time="1.155">
-    <testcase name="nrcanPppConstructorTest" classname="ca.cidco.csb.test.NrcanPppTest" time="0.001"/>
-    <testcase name="ubxToObsTest" classname="ca.cidco.csb.test.NrcanPppTest" time="1.154"/>
-  </testsuite>
-</testrun>

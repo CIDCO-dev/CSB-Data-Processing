@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="NrcanPppTest" project="Georeferencing" tests="5" started="5" failures="0" errors="0" ignored="0">
-  <testsuite name="ca.cidco.csb.test.NrcanPppTest" time="105.73">
-    <testcase name="nrcanPppConstructorTest" classname="ca.cidco.csb.test.NrcanPppTest" time="0.0"/>
-    <testcase name="ubxToObsTest" classname="ca.cidco.csb.test.NrcanPppTest" time="1.179"/>
-    <testcase name="posToPppFileTest" classname="ca.cidco.csb.test.NrcanPppTest" time="0.288"/>
-    <testcase name="obsToNrcanPppTest" classname="ca.cidco.csb.test.NrcanPppTest" time="104.244"/>
-    <testcase name="unzipNrcanFileTest" classname="ca.cidco.csb.test.NrcanPppTest" time="0.019"/>
-  </testsuite>
-</testrun>

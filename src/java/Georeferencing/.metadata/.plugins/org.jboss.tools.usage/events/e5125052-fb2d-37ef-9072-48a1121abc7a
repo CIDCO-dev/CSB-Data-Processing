@@ -1,11 +1,11 @@
-#Thu Oct 27 09:15:34 EDT 2022
-ct=jbt
+#Wed Nov 09 14:55:03 EST 2022
 a=finishWizard
 c=0
-s=0
-d=1666876534970
+cl=org.eclipse.jdt.internal.junit.wizards.NewTestCaseCreationWizard
+cmp=usage
+ct=jbt
+d=1668023703150
+l=Wizard class name
+s=1
 v=2.2.400
 vl=How many times the 'Finish' button pressed during the day
-cmp=usage
-cl=org.eclipse.jdt.internal.junit.wizards.NewTestCaseCreationWizard
-l=Wizard class name

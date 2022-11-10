@@ -2,15 +2,24 @@ package ca.cidco.csb;
 
 import java.util.Scanner;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
+
 public class MatrixXd {
 	double[][] a = new double[3][3];
+	Array2DRowRealMatrix matrix = new Array2DRowRealMatrix(3, 3);
 	
-	
-	MatrixXd() {
-		
+	public MatrixXd() {
 	}
 	
-	public void initializeMatrixXd(double cR, double sR, double cP, double sP, double cY, double sY) {
+	public void initializeMatrixXd(double Roll, double Pitch, double Heading) {
+		double cR = Math.cos(Roll);
+		double sR = Math.sin(Roll);
+		double cP = Math.cos(Pitch);
+		double sP = Math.sin(Pitch);
+		double cY = Math.cos(Heading);
+		double sY = Math.sin(Heading);
+
 		a[0][0]=(cY*cP);
 		a[0][1]=(cY*sP*sR-cR*sY);
 		a[0][2]=(cY*cR*sP+sR*sY);
@@ -19,12 +28,22 @@ public class MatrixXd {
 		a[1][2]=(sY*cR*sP-cY*sR);
 		a[2][0]=(-sP);
 		a[2][1]=(cP*sR);
-		a[2][2]=(cR*cP);
+		a[2][2]=(cR*cP); 
+		
+		matrix.addToEntry(0, 0, (cY*cP));
+		matrix.addToEntry(0, 1, (cY*sP*sR-cR*sY));
+		matrix.addToEntry(0, 2,(cY*cR*sP+sR*sY));
+		matrix.addToEntry(1, 0, (cP*sY));
+		matrix.addToEntry(1, 1, (cY*cR+sP*sR*sY));
+		matrix.addToEntry(1, 2, (sY*cR*sP-cY*sR));
+		matrix.addToEntry(2, 0, (-sP));
+		matrix.addToEntry(2, 1, (cP*sR));
+		matrix.addToEntry(2, 2, (cR*cP)); 
 		
 		printMatrix(this);
+		System.err.println("et matrix:");
+		System.err.println(matrix.toString());
 	}
-	
-
 	
 	
 	public void printMatrix(MatrixXd m) {
