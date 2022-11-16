@@ -1,0 +1,98 @@
+package ca.cidco.csb.georeference;
+
+import java.util.ArrayList;
+
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
+
+import ca.cidco.csb.MatrixXd;
+import ca.cidco.csb.surveydata.Attitude;
+import ca.cidco.csb.surveydata.Depth;
+import ca.cidco.csb.surveydata.Position;
+import ca.cidco.csb.utilities.Conversion;
+import ca.cidco.csb.utilities.Geodesy;
+
+public class ErsGeoreferencing extends Georeference{
+
+	RealVector leverArm;
+	double a= Geodesy.a;
+	double e= Geodesy.e;
+	
+	public ErsGeoreferencing(RealVector leverArm) {
+		this.leverArm= leverArm;
+	}
+	
+
+
+	@Override
+	protected BathymetryPoint georeference(Position position, Attitude attitude, Depth depth) {
+
+		
+//Zprofil = Zprofil.array() - draft;   draft WLRS seulement
+		
+		//Convert Euler angles to radians
+		double roll = Conversion.deg2Rad(attitude.getRoll());
+		double pitch =Conversion.deg2Rad(attitude.getPitch());
+		double heading = Conversion.deg2Rad(attitude.getHeading());
+		Geodesy geo = new Geodesy();
+		
+		Array2DRowRealMatrix imu2ned = new Array2DRowRealMatrix(3, 3);
+		MatrixXd.initializeMatrixImu2Ned(imu2ned, roll, pitch, heading);
+
+		Array2DRowRealMatrix ned2ecef = new Array2DRowRealMatrix(3, 3);
+		MatrixXd.i(imu2ned, roll, pitch, heading);
+
+
+		RealVector positionECEF= geo.LLH_2_ECEF(position.getLatitude(), position.getLongitude(), position.getHeight());
+
+		RealVector pingECEF = new ArrayRealVector(new double[] { 0.0, 0.0, depth.getDepth() });
+
+		
+		//TODO		leverArmECEF =  ned2ecef * (imu2ned * leverArm);
+		RealVector leverArmECEF = imu2ned.preMultiply(leverArm);
+		
+		geo.Nav_2_ECEF( lat??, lon?? , leverArmECEF.getEntry(0),leverArmECEF.getEntry(1) ,leverArmECEF.getEntry(2))
+		
+		
+//ecef position gnss-   point imu frame bateau,  		SBES geaoreferencing 3 vecteur bras de levier x vitesse 1450 m/s
+		ECEF est un TRF
+		Position de sonde: 
+		  Pgnss (frame ECEF)	
+		+ Bras de levier (frame IMU) NED
+		+ vecteur sonar (frame imu)
+						
+		IMU a frame locale   
+		
+		2 matrice
+		IMU a frame local
+		frame local et globale
+
+		double rn1= ;
+		double rn2= ;
+		double rn3= ;
+
+		//// Merging: CnTRF*(Pn + rn + Cbin*abi)
+		//double xTRF, yTRF, zTRF;
+		//merging(xTRF, yTRF, zTRF, rn1, rn2, rn3, lat, lon, height_Ell_WL, Roll, Pitch, Heading, abi, a, e);
+		//
+		//// Soundings' geographic coordinates
+		//ECEF_2_LatLonH(latGeoref, lonGeoref, hGeoref, xTRF, yTRF, zTRF, a, e);
+		//}
+		//
+
+//
+//// Transform to degres: We add HeightWL to h
+		double latGeoref = Conversion.rad2Deg(latGeoref);
+		double lonGeoref = Conversion.rad2Deg(lonGeoref);
+		
+		
+		
+		
+		
+		BathymetryPoint bathymetryPoint= new BathymetryPoint(depth.getTimestamp(), lonGeoref, latGeoref, hGeoref, position.getSdLongitude(), position.getSdLatitude(), position.getSdHeight());
+		
+		return bathymetryPoint;
+	}
+
+}

@@ -1,9 +1,9 @@
      3.04           N: GNSS NAV DATA    M: Mixed            RINEX VERSION / TYPE
-CONVBIN demo5 b34g                      20221031 151137 UTC PGM / RUN BY / DATE 
-log: data/hydroblockReadDataTest/completeData/2022.10.11_224COMMENT             
+CONVBIN demo5 b34g                      20221115 205155 UTC PGM / RUN BY / DATE 
+log: data/hydroblockReadDataTest/completeData//2022.10.11_22COMMENT             
 format: u-blox UBX                                          COMMENT             
 format: u-blox UBX                                          COMMENT             
-log: data/hydroblockReadDataTest/completeData/2022.10.11_224COMMENT             
+log: data/hydroblockReadDataTest/completeData//2022.10.11_22COMMENT             
                                                             END OF HEADER       
 E14 2022 10 11 22 10 00  .250163720921D-04  .108713038571D-10  .000000000000D+00
       .370000000000D+02 -.726562500000D+02  .524628995761D-08 -.163476977097D+01

@@ -1,7 +1,6 @@
 package ca.cidco.csb.georeference;
 
-import java.util.ArrayList;
-
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
 
@@ -13,66 +12,47 @@ import ca.cidco.csb.utilities.Geodesy;
 
 public class ErsGeoreferencing extends Georeference{
 
-	double leverArmX;
-	double leverArmY;
-	double leverArmZ;
-	double draft;
+	RealVector leverArm;
 	double a= Geodesy.a;
 	double e= Geodesy.e;
 	
-	public ErsGeoreferencing(Job job) {
-		leverArmX= job.getLeverArmX;
-		leverArmY= job.getLeverArmY;
-		leverArmZ= job.getLeverArmZ;
-		draft= job.getDraft;
+	public ErsGeoreferencing(RealVector leverArm) {
+		this.leverArm= leverArm;
 	}
 	
-	
-
 	@Override
-	protected BathymetryPoint georeference(Position position, Attitude attitude, Depth depth) {
-
-		RealVector abi = new ArrayRealVector(new double[] { leverArmX, leverArmY, leverArmZ });
-		
-// Remove draft
-//Zprofil = Zprofil.array() - draft;
+	public BathymetryPoint georeference(Position position, Attitude attitude, Depth depth)  throws Exception {
 		
 		//Convert Euler angles to radians
-		double roll = Conversion.deg2Rad(attitude.getRoll());
-		double pitch =Conversion.deg2Rad(attitude.getPitch());
-		double heading = Conversion.deg2Rad(attitude.getHeading());
 		
-		//Convert lat/lon to radians
-		double lat = Conversion.deg2Rad(position.getLatitude());
-		double lon = Conversion.deg2Rad(position.getLongitude());
+		//Init IMU to NED matrix
+		Array2DRowRealMatrix imu2ned = Geodesy.imu2ned(attitude);
 
-//// Refraction correction
-//double rn1, rn2, rn3;
-//RayTracing(rn1, rn2, rn3, Roll, Pitch, Heading, TravelTime, Cprofil, Zprofil);
+		//Init NED to ECEF Matrix
+		Array2DRowRealMatrix ned2ecef = Geodesy.ned2ecef(position);
 
-		//if (TypeSurvey == "ERS")
-		//{
-		//// Merging: CnTRF*(Pn + rn + Cbin*abi)
-		//double xTRF, yTRF, zTRF;
-		//merging(xTRF, yTRF, zTRF, rn1, rn2, rn3, lat, lon, height_Ell_WL, Roll, Pitch, Heading, abi, a, e);
-		//
-		//// Soundings' geographic coordinates
-		//ECEF_2_LatLonH(latGeoref, lonGeoref, hGeoref, xTRF, yTRF, zTRF, a, e);
-		//}
-		//
-
-//
-//// Transform to degres: We add HeightWL to h
-		double latGeoref = Conversion.rad2Deg(latGeoref);
-		double lonGeoref = Conversion.rad2Deg(lonGeoref);
+		//We have a position in the ECEF frame
+		RealVector positionECEF= Geodesy.LLH_2_ECEF(position.getLatitude(), position.getLongitude(), position.getHeight());
+		
+		//convert ping from IMU frame to ECEF frame
+		RealVector pingECEF = ned2ecef.operate(imu2ned.operate(new ArrayRealVector(new double[] { 0.0, 0.0, depth.getDepth() })));
+		//convert lever arm from IMU frame to ECEF
+		RealVector leverArmECEF = ned2ecef.operate(imu2ned.operate(leverArm));
+		
+		//Georeferenced sounding is the sum of the 3 vectors (in the ECEF frame)
+		RealVector georefPing = positionECEF.add(pingECEF).add(leverArmECEF) ;
 		
 		
+		//Convert georeferenced ping in ECEF frame to Lat/Lon coordinates
+		RealVector georef = Geodesy.ECEF_2_LatLonH(georefPing.getEntry(0), georefPing.getEntry(1), georefPing.getEntry(2));
 		
-		
+		double latGeoref = georef.getEntry(0);
+		double lonGeoref = georef.getEntry(1);
+		double hGeoref = georef.getEntry(2);
 		
 		BathymetryPoint bathymetryPoint= new BathymetryPoint(depth.getTimestamp(), lonGeoref, latGeoref, hGeoref, position.getSdLongitude(), position.getSdLatitude(), position.getSdHeight());
 		
-		return bathymetryPoint;
+		return bathymetryPoint;	
 	}
 
 }

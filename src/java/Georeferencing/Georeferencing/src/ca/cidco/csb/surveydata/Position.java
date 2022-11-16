@@ -8,9 +8,9 @@ public class Position{
 	
 	private Timestamp timestamp;
 	
-	private Double longitude; //in doubles
-	private Double latitude; //in doubles
-	private Double height; //in degrees
+	private Double longitude; //in degrees
+	private Double latitude; //in degrees
+	private Double height; //in meters
 	
 	private Double sdLongitude; //in meters
 	private Double sdLatitude; //in meters

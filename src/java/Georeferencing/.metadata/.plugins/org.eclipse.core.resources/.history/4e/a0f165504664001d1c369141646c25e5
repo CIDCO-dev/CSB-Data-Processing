@@ -1,0 +1,14 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class GeoreferencingTest {
+
+	@Test
+	public void testGeoreference() {
+		fail("Not yet implemented");
+	}
+
+}

@@ -8,9 +8,9 @@ public class Depth{
 	
 	private Double depth; // in meters
 	
-	public Depth(Timestamp timestamp_, Double depth_) {
-		timestamp = timestamp_;
-		depth = depth_;
+	public Depth(Timestamp timestamp, Double depth) {
+		this.timestamp = timestamp;
+		this.depth = depth;
 	}
 
 	public Timestamp getTimestamp() {

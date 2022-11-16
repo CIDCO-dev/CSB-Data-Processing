@@ -9,28 +9,8 @@ public class WlrsGeoreferencing extends Georeference{
 	
 
 	@Override
-	protected BathymetryPoint georeference(Position position, Attitude attitude, Depth depth) {
-		// TODO Auto-generated method stub
-		return null;
-		
-		
-		
-	//// WLRS survey: (latitude, longitude, 0) is converted to TRF
-		//else
-		//{
-		//// Merging: CnTRF*(Pn + rn + Cbin*abi)
-		//double xTRF, yTRF, zTRF;
-		//merging(xTRF, yTRF, zTRF, rn1, rn2, rn3, lat, lon, 0, Roll, Pitch, Heading, abi, a, e);
-		//
-		//// Soundings' geographic coordinates
-		//ECEF_2_LatLonH(latGeoref, lonGeoref, hGeoref, xTRF, yTRF, zTRF, a, e);
-		//
-		//// Height wrt water level
-		//if (TypeSurvey == "WLRS") {hGeoref = hGeoref + height_Ell_WL;}
-		//
-		//// distance water surface seafloor
-		//if (TypeSurvey == "InstantDepth"){hGeoref = rn3 + draft;}
-		//}
+	protected BathymetryPoint georeference(Position position, Attitude attitude, Depth depth) throws Exception {
+		throw new Exception("WLRS georeferencing not implemented");
 	}
 
 }

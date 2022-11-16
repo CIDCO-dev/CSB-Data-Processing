@@ -83,6 +83,6 @@ public class BathymetryPoint {
     // Overriding toString() method of String class
     @Override
     public String toString() {
-        return "Timestamp : "+ timestamp+" |  Longitude : "+longitude+" | Latitude : "+ latitude +" | height : "+ellipsoidalHeight +"   | SDLAT : "+sdLatitude+" | SDLON : "+sdLongitude+" | SDHGT : "+sdEllipsoidalHeight +"\n";
+        return "t: "+ timestamp+" | Long: "+longitude+" | Lat: "+ latitude +" | height: "+ellipsoidalHeight +" | SDLAT : "+sdLatitude+" | SDLON : "+sdLongitude+" | SDHGT : "+sdEllipsoidalHeight;
     }
 }

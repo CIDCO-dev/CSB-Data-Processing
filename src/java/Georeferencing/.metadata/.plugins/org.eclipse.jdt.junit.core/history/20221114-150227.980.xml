@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="GeodesyTest" project="Georeferencing" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="ca.cidco.csb.test.GeodesyTest" time="0.021">
+    <testcase name="testECEF_2_LatLonH" classname="ca.cidco.csb.test.GeodesyTest" time="0.02"/>
+    <testcase name="testLLH2ecef" classname="ca.cidco.csb.test.GeodesyTest" time="0.001"/>
+  </testsuite>
+</testrun>

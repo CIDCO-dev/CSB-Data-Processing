@@ -1,0 +1,35 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.math3.linear.RealVector;
+import org.junit.Test;
+
+import ca.cidco.csb.georeference.BathymetryPoint;
+import ca.cidco.csb.georeference.ErsGeoreferencing;
+import ca.cidco.csb.surveydata.Attitude;
+import ca.cidco.csb.surveydata.Depth;
+import ca.cidco.csb.surveydata.Position;
+
+public class GeoreferencingTest {
+
+	@Test
+	public void testGeoreference() {
+		Position 	testPosition = ...;
+		Attitude 	testAttitude = ...;
+		Depth 		testDepth = ...;
+		RealVector leverArm = ...;
+		
+		ErsGeoreferencing geo = new ErsGeoreferencing(leverArm);
+
+		BathymetryPoint sounding = geo.georeference(testPosition, testAttitude, testDepth);
+	
+		...
+		
+		fail("Not yet implemented");
+	}
+
+}

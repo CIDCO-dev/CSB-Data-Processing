@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun ca.cidco.csb.test.GeoreferencingTest" project="Georeferencing" tests="3" started="3" failures="0" errors="0" ignored="0">
+  <testsuite name="ca.cidco.csb.test.GeoreferencingTest" time="0.031">
+    <testcase name="testGeoreferencePositionWithLeverarm" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.03"/>
+    <testcase name="testGeoreferencePositionWithDepth" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferencePositionOnly" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+  </testsuite>
+</testrun>

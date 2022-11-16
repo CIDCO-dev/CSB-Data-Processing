@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="GeoreferencingTest" project="Georeferencing" tests="15" started="15" failures="0" errors="0" ignored="0">
+  <testsuite name="ca.cidco.csb.test.GeoreferencingTest" time="0.035">
+    <testcase name="testGeoreferencePositiveRoll" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.032"/>
+    <testcase name="testGeoreferenceNegativeAttitude" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.001"/>
+    <testcase name="testGeoreferenceAttitudeVariation" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferenceNegativeRoll" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferencePositiveLongitude" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferencePositionWithLeverarm" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferencePositivePitch" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferencePositiveAttitude" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.001"/>
+    <testcase name="testGeoreferenceNegativePitch" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferenceNegativeLatitude" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferencePositiveHeading" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferenceNegativeHeading" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.001"/>
+    <testcase name="testGeoreferencePositionWithDepth" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferenceNegativeEllipsoidalHeight" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+    <testcase name="testGeoreferencePositionOnly" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+  </testsuite>
+</testrun>

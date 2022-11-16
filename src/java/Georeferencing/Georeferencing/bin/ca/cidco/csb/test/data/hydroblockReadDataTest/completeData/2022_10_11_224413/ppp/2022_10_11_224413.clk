@@ -1,10 +1,10 @@
      3.00           CLOCK DATA          GR                  RINEX VERSION / TYPE
-SPARK 3.50.3        CSRS-PPP            20221031 151228 UTC PGM / RUN BY / DATE
+SPARK 3.50.3        CSRS-PPP            20221115 205335 UTC PGM / RUN BY / DATE
    GPS                                                      TIME SYSTEM ID
      1    AR                                                # / TYPES OF DATA
 EMR  Natural Resources Canada                               ANALYSIS CENTER
-G SPARK             igs14_2223_nrcan.atx                    SYS / PCVS APPLIED
-R SPARK             igs14_2223_nrcan.atx                    SYS / PCVS APPLIED
+G SPARK             igs14_2233_nrcan.atx                    SYS / PCVS APPLIED
+R SPARK             igs14_2233_nrcan.atx                    SYS / PCVS APPLIED
    1      IGb14                                             # OF SOLN STA / TRF
 2022                      1637136378 -3749897203  4876311410SOLN STA NAME / NUM
                                                             END OF HEADER
