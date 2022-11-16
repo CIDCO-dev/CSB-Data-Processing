@@ -149,12 +149,12 @@ class GnssInterpolation:
             h1 = float(imu_contents.loc[imu_contents['Timestamp'] == ta1, 'Heading'].item())
 
             # pitch
-            p0 = imu_contents.loc[imu_contents['Timestamp'] == ta0, 'Pitch'].item()
-            p1 = imu_contents.loc[imu_contents['Timestamp'] == ta1, 'Pitch'].item()
+            p0 = float(imu_contents.loc[imu_contents['Timestamp'] == ta0, 'Pitch'].item())
+            p1 = float(imu_contents.loc[imu_contents['Timestamp'] == ta1, 'Pitch'].item())
 
             # roll
-            r0 = imu_contents.loc[imu_contents['Timestamp'] == ta0, 'Roll'].item()
-            r1 = imu_contents.loc[imu_contents['Timestamp'] == ta1, 'Roll'].item()
+            r0 = float(imu_contents.loc[imu_contents['Timestamp'] == ta0, 'Roll'].item())
+            r1 = float(imu_contents.loc[imu_contents['Timestamp'] == ta1, 'Roll'].item())
 
             # check for gaps in position and attitude data
             dtp = float(tp1) - float(tp0)
@@ -216,9 +216,23 @@ class GnssInterpolation:
                 print('GNSS and IMU interpolation completed successfully')
                 break
 
-        ers = pd.DataFrame({'Timestamp': np.array(timestamps), 'LONSS': np.array(x), 'LATSS': np.array(y),
-                            'HGT(m)': np.array(z), 'Heading': np.array(h), 'Pitch': np.array(p),
-                            'Roll': np.array(r), 'Depth': np.array(s)})
+        # convert depth to travelTime (one-way)
+        ss = 1490  # set the sound speed used during data collection (m/s)
+        tt_list = []
+        for depth in range(len(s)):
+            tt = s[depth] / (2 * ss)
+            tt_list.append(tt)
+
+        # convert timestamps back to datetime
+        dt_list = []
+        for timestamp in range(len(timestamps)):
+            dt = datetime.fromtimestamp(timestamps[timestamp])
+            dt_list.append(dt)
+
+        # compile dataframe
+        ers = pd.DataFrame({'travelTime': np.array(tt_list), 'latitude': np.array(y), 'longitude': np.array(x),
+                            'height': np.array(z), 'heading': np.array(h), 'pitch': np.array(p),
+                            'roll': np.array(r), 'depth': np.array(s), 'datetime': np.array(dt_list)})
 
         return ers.to_csv('er_soundings.csv', header=True, index=False)
 
