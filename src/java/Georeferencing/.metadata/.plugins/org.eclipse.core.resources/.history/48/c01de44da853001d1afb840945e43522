@@ -1,0 +1,61 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.cidco.csb.ppp.PppFile;
+import ca.cidco.csb.surveydata.Position;
+
+public class GnssQualifierTest {
+	
+	PppFile ppp1 = new PppFile(); 
+	PppFile ppp2 = new PppFile(); 
+	PppFile ppp3 = new PppFile(); 
+	
+	//Create timestamp to make positions 
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+	String dateTime= "2022-06-01 00:54:37.01";
+    java.util.Date parsedDate = dateFormat.parse(dateTime);
+    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+	    //set Position parameter
+
+//	built position with each rows and add them to PppFile
+    Position position= new Position(timestamp,latitude, longitude, height,0.0347,0.0227 ,0.0546,12,1.8);
+    ppp.getPositions().add(position);
+	
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void testGnssQualifier() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsErsValid() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsWlrsValid() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testValidate() {
+		fail("Not yet implemented");
+	}
+
+}

@@ -1,0 +1,14 @@
+package ca.cidco.csb.surveydata;
+
+import java.sql.Timestamp;
+
+public class Attitude{
+	
+	private Timestamp timestamp;
+	
+	private Double heading;
+	private Double pitch;
+	private Double roll;
+
+	
+}

@@ -1,0 +1,17 @@
+package ca.cidco.csb.surveyplatform.hydroblock;
+
+import java.util.ArrayList;
+
+import ca.cidco.csb.surveydata.Attitude;
+import ca.cidco.csb.surveydata.Depth;
+import ca.cidco.csb.surveydata.Position;
+
+public class Hydroblock20 {
+	private ArrayList<Position> positions;
+	private ArrayList<Attitude> attitudes;
+	private ArrayList<Depth>	depths;
+	
+	public void read(String dataPath) {
+		//TODO
+	}
+}

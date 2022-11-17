@@ -1,0 +1,77 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.cidco.csb.GnssQualifier;
+import ca.cidco.csb.ppp.PppFile;
+import ca.cidco.csb.surveydata.Position;
+
+public class GnssQualifierTest {
+	GnssQualifier gnss = new GnssQualifier();
+	PppFile ppp1 = new PppFile(); 
+	PppFile ppp2 = new PppFile(); 
+	PppFile ppp3 = new PppFile(); 
+	
+	@Test
+	public void testValidate() throws Exception {
+		
+	//Create timestamp to make positions 
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+	String dateTime= "2022-10-10 20:44:28.0";
+	java.util.Date parsedDate = dateFormat.parse(dateTime);
+	Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+	
+	//set Position parameter
+	
+	Position validPosition= new Position(timestamp,50.1919, -66.40107, -0.0965,0.0347,0.0227 ,0.0546,12,1.8);
+	ppp1.getPositions().add(validPosition);
+	ppp2.getPositions().add(validPosition);
+	ppp3.getPositions().add(validPosition);
+
+	Position invalidSdHeightPosition= new Position(timestamp,50.1919, -66.40107, -0.0965,0.0347,0.0227 ,11.0546,12,1.8);
+	ppp2.getPositions().add(invalidSdHeightPosition);
+	
+	Position invalidLatitudePosition= new Position(timestamp,50.1919, -66.40107, -0.0965,12.0347,0.0227 ,0.0546,12,1.8);
+	ppp3.getPositions().add(invalidLatitudePosition);
+	
+	gnss.validate(ppp1);
+	assertTrue(gnss.isErsValid());
+	assertTrue(gnss.isWlrsValid());
+
+	gnss.validate(ppp2);
+	assertFalse(gnss.isErsValid());
+	assertTrue(gnss.isWlrsValid());
+	
+	gnss.validate(ppp2);
+	assertFalse(gnss.isErsValid());
+	assertFalse(gnss.isWlrsValid());
+	
+
+	@Test
+	public void testGnssQualifier()  throws Exception {
+	    
+		
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsErsValid() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testIsWlrsValid() {
+		fail("Not yet implemented");
+	}
+
+	}
+
+}

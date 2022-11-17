@@ -1,0 +1,39 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.cidco.csb.utilities.Conversion;
+
+public class ConversionTest {
+
+
+	@Test
+	public void testConvertDMStoDecimalDegree() {
+		try {
+			
+			double result =Conversion.convertDMStoDecimalDegree(32.4, 48.234 , 56.456);
+			assertTrue((33.21958-0.00001)< result && result <33.21958+0.00001);
+			
+			double result_1 =Conversion.convertDMStoDecimalDegree(12.456, 18.234 , 6.456);
+			assertTrue((12.76169-0.00001)< result_1 && result_1 <12.76169+0.00001);
+			
+			assertTrue( Conversion.convertDMStoDecimalDegree(12.456, 68.234 , 6.456)>0);
+			
+//			double result_1 =Conversion.convertDMStoDecimalDegree(12.456, 18.234 , 6.456);
+//			
+//			double result_1 =Conversion.convertDMStoDecimalDegree(12.456, 18.234 , 6.456);
+		}
+		catch (Exception e) {
+		    e.printStackTrace();
+		    System.out.println("\n test de commentaire \n");
+            fail(e.getMessage());
+		}
+
+		
+	}
+
+}

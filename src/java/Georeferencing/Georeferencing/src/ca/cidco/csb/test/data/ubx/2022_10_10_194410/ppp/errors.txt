@@ -1,0 +1,1 @@
+2022_10_10_194410.obs | Warning : No antenna type RINEX header record was found. Phase Centre Offsets and Variation could not be applied. Estimated height should be used with caution.

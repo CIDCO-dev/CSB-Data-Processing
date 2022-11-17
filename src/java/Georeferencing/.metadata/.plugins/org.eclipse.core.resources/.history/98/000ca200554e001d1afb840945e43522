@@ -1,0 +1,13 @@
+package ca.cidco.csb.surveydata;
+
+import java.sql.Timestamp;
+
+public class Position{
+	
+	private Timestamp timestamp;
+	
+	private Double longitude; //in degrees
+	private Double latitude; //in degrees
+	
+	
+}

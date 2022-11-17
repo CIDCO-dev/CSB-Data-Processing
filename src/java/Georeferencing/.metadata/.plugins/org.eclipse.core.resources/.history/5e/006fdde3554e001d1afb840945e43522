@@ -1,0 +1,35 @@
+package ca.cidco.csb.ppp;
+
+import java.util.ArrayList;
+
+public class PppFile {
+	
+	private ArrayList<PppPosition> pppPos = new ArrayList<PppPosition>() ;
+	
+	public PppFile() {
+	}
+	
+	public void add(PppPosition position) {
+		pppPos.add(position);
+	}
+	
+	public PppPosition get(int i) {
+		return pppPos.get(i);
+	}
+	public int size() {
+		return pppPos.size();
+	}
+	
+    public ArrayList<PppPosition> getPppPos() {
+		return pppPos;
+	}
+
+	@Override
+	public String toString() {
+    	String output="";
+    	for (PppPosition pppPosition : pppPos) {
+			output += pppPosition.toString();
+    	} 
+    	return output;
+    }
+}

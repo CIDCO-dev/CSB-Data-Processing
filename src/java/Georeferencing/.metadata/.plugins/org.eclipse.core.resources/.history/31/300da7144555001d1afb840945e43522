@@ -1,0 +1,93 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.cidco.csb.georeference.BathymetryPoint;
+import ca.cidco.csb.surveydata.Position;
+import ca.cidco.csb.utilities.BigDecimalFactory;
+
+public class InterpolationTest {
+	
+//    private static final String TIDE_PATH = "test/rsc/TIDE/fake_tide.tid";
+    private static final BigDecimal SEUIL = BigDecimalFactory.create("0.01");
+    private static final double EPSILON = 0.00000000000001;
+	
+	
+	double y1Latitude =			48;
+	double y1Longitude =		-69;
+	double y1EllipsoidalHeight=	0;
+	double y1Heading =			0;
+	double y1Pitch =			0;
+	double y1Roll =				0;
+	
+	double y2Latitude =			49;
+	double y2Longitude =		-68;
+	double y2EllipsoidalHeight=	1;
+	double y2Heading=			30;
+	double y2Pitch =			50;
+	double y2Roll =				30;
+	
+//	x (Timestamp)	
+	double xLatitude =			500;
+	double xLongitude =			500;
+	double xEllipsoidalHeight =	500;
+	double xHeading=			500;
+	double xPitch =				500;
+	double xRoll =				500;
+
+	//	x1 (Timestamp)	
+	double x1Latitude	=		0;
+	double x1Longitude =		0;
+	double x1EllipsoidalHeight=	0;
+	double x1Heading =			200;
+	double x1Pitch =			200;
+	double x1Roll	=			200;
+
+	//	x2 (Timestamp)	
+	double x2Latitude	=		800;
+	double x2Longitude =		800;
+	double x2EllipsoidalHeight=	800;
+	double x2Heading =			800;
+	double x2Pitch =			800;
+	double x2Roll	=			800;
+	
+	
+	@Test
+	public void testLinearInterpolation() {
+		
+		linearInterpolation(BigDecimal y1, BigDecimal y2, BigDecimal x, BigDecimal x1, BigDecimal x2)
+
+		fail("Not yet implemented");
+	
+	}
+
+	@Test
+	public void testInterpolatePosition() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testInterpolateAttitude() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testLinearInterpolationByTime() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testLinearAngleInterpolationByTime() {
+		fail("Not yet implemented");
+	}
+
+}

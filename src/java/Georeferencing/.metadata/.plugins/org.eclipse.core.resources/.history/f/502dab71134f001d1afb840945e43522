@@ -1,0 +1,83 @@
+package ca.cidco.csb;
+
+import ca.cidco.csb.ppp.NrcanPPP;
+import ca.cidco.csb.ppp.PppFile;
+
+public class Main {
+
+	public static void main(String[] args) {
+		//TODO: Testing CLI 
+		
+    	// ubx test if no cli args
+		String test1 = "/home/dominic/Bureau/ubx/2022.06.01_005418.ubx"; 	// Not Valid POS		Bella
+		String test2 = "/home/dominic/Bureau/ubx/2022.09.26_202748.ubx"; 	// Not Valid POS		Bella
+		String test3 = "/home/dominic/Bureau/ubx/2022.09.26_222748.ubx"; 	// Not Valid POS		Bella
+		String test4 = "/home/dominic/Bureau/ubx/2022.09.26_232748.ubx"; 	// Not Valid POS    	Oceanex
+		String test5 = "/home/dominic/Bureau/ubx/2022.10.07_221432.ubx"; 	// Not Valid POS		Oceanex
+		String test6 = "/home/dominic/Bureau/ubx/2022.10.08_011432.ubx"; 	// Not Valid POS		Bella
+		String test7 = "/home/dominic/Bureau/ubx/2022.10.10_194410.ubx"; 	// Not Valid POS		Bella
+		String test8 = "/home/dominic/Bureau/ubx/2022.10.11_224413.ubx";  	// Valid 	 POS		Bella
+		String test9 = "/home/dominic/Bureau/georef/2022.10.11_224413.ubx"; // Valid 	 POS		Bella
+		
+		//CLI args
+		String gnssBinaryFile="";
+		if (args.length > 0) {
+		    try {
+		    	gnssBinaryFile = new java.io.File(args[0]).getAbsolutePath();
+		    } catch (Exception e) {
+		        System.err.println("Argument " + args[0] + " must be an Binary File.");
+		        System.exit(1);
+		    }
+		}
+		//If no valid args, use test File 
+		else {
+			gnssBinaryFile = test8;
+			System.err.println("No arg in CLI, processing this test file :"+gnssBinaryFile);
+		}
+		try {
+			PppFile pppFile = NrcanPPP.fetchPPP(gnssBinaryFile);
+			
+			//Make sure pppFile contain positions
+			System.out.println("First position : "+ pppFile.getPositions().get(0).toString());
+			System.out.println("100e position  : "+ pppFile.getPositions().get(100));	
+			int pppSize = pppFile.getPositions().size()-1;
+//			System.out.println("size  : "+pppSize);
+			System.out.println("Last position  : "+pppFile.getPositions().get(pppSize));
+
+//			Test pppFile
+			GnssQualifier gnss = new GnssQualifier();
+			gnss.validate(pppFile);
+			if(gnss.isErsValid()) {
+				//TODO: ERS georeferencing
+				System.err.println("POS File valid for ERS georeferencing" );
+			}
+			else {
+				if (gnss.isWlrsValid()) {
+					//todo wlrs georeferencing
+					System.err.println("POS File valid for WLRS georeferencing only" );
+				}
+				else {
+					//("POS File not valid, do nothing" );
+					System.err.println("POS File not valid for georeferencing" );
+
+				}
+			}
+			
+		}
+		catch(Exception e) {
+			System.err.println("Error while georeferencing: " + e.getMessage() );
+		}
+			
+
+/*
+		Georeferencing geo =new Georeferencing();
+		geo.dcm(1.054, 4.25, 1.2458);
+		
+//		public void LatLonH_2_ECEF(double lat, double lon, double ellipsoidal_height, double half_ellipsoidal_axe, double first_eccentricity)
+		geo.LatLonH_2_ECEF(46.86194, -4.470, 48.8, 6378137, 0.081819190842622);
+*/		
+		
+		
+
+	}
+}

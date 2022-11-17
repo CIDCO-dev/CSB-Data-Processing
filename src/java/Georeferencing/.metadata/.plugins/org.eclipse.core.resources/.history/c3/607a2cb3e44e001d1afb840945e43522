@@ -1,0 +1,83 @@
+package ca.cidco.csb.surveydata;
+
+import java.sql.Timestamp;
+
+public class Position{
+	
+	private Timestamp timestamp;
+	
+	private Double longitude; //in degrees
+	private Double latitude; //in degrees
+	private Double height; //in degrees
+	
+	private Double sdLongitude; //in meters
+	private Double sdLatitude; //in meters
+	private Double sdHeight; //in meters	
+
+	private Long numberOfSatellites;
+	private Double gdop;	
+	
+	public Position() {
+		
+	}
+	
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+	public Double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+	public Double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+	public Double getHeight() {
+		return height;
+	}
+	public void setHeight(Double height) {
+		this.height = height;
+	}
+	public Double getSdLongitude() {
+		return sdLongitude;
+	}
+	public void setSdLongitude(Double sdLongitude) {
+		this.sdLongitude = sdLongitude;
+	}
+	public Double getSdLatitude() {
+		return sdLatitude;
+	}
+	public void setSdLatitude(Double sdLatitude) {
+		this.sdLatitude = sdLatitude;
+	}
+	public Double getSdHeight() {
+		return sdHeight;
+	}
+	public void setSdHeight(Double sdHeight) {
+		this.sdHeight = sdHeight;
+	}
+	
+	public Long getNumberOfSatellites() {
+		return numberOfSatellites;
+	}
+
+	public void setNumberOfSatellites(Long numberOfSatellites) {
+		this.numberOfSatellites = numberOfSatellites;
+	}	
+	
+	public Double getGdop() {
+		return gdop;
+	}
+
+	public void setGdop(Double gdop) {
+		this.gdop = gdop;
+	}	
+	
+}

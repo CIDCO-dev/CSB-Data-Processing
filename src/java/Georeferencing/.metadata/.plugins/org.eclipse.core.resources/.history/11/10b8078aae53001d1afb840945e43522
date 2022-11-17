@@ -1,0 +1,63 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.cidco.csb.GnssQualifier;
+import ca.cidco.csb.ppp.PppFile;
+import ca.cidco.csb.surveydata.Position;
+
+public class GnssQualifierTest {
+	
+	private Position buildValid() throws Exception {
+		//Create timestamp to make positions 
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+		String dateTime= "2022-10-10 20:44:28.0";
+		java.util.Date parsedDate = dateFormat.parse(dateTime);
+		Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+		
+		return new Position(timestamp,50.1919, -66.40107, -0.0965,0.0347,0.0227 ,0.0546,12,1.8);
+	}
+	
+
+	@Test
+	public void testValid() {
+		fail("todo");
+	}
+	
+	@Test
+	public void testInvalidLatitude() {
+		fail("todo");
+	}
+	
+	@Test
+	public void testInvalidLongitude() {
+		fail("todo");
+	}
+	
+	@Test
+	public void testInvalidHeight() {
+		fail("todo");
+	}
+	
+	@Test
+	public void testInvalidGdop() {
+		fail("todo");
+	}
+	
+	@Test
+	public void testInvalidNsv() {
+		fail("todo");
+	}
+	
+	
+	
+}
+
