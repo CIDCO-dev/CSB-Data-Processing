@@ -2,5 +2,21 @@
 <qualifiedTypeNameHistroy>
     <fullyQualifiedTypeName name="ca.cidco.csb.ppp.PppNrcanReader"/>
     <fullyQualifiedTypeName name="ca.cidco.csb.ppp.PppHeader"/>
+    <fullyQualifiedTypeName name="ca.cidco.csb.GnssQualifier"/>
+    <fullyQualifiedTypeName name="ca.cidco.csb.georeference.Georeference"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
+    <fullyQualifiedTypeName name="ca.cidco.csb.georeference.ErsGeoreferencing"/>
+    <fullyQualifiedTypeName name="ca.cidco.csb.georeference.WlrsGeoreferencing"/>
+    <fullyQualifiedTypeName name="org.apache.commons.math3.linear.ArrayRealVector"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.lang.Math"/>
+    <fullyQualifiedTypeName name="ca.cidco.csb.utilities.Conversion"/>
+    <fullyQualifiedTypeName name="ca.cidco.csb.surveydata.Attitude"/>
+    <fullyQualifiedTypeName name="ca.cidco.csb.utilities.Geodesy"/>
+    <fullyQualifiedTypeName name="java.util.Vector"/>
+    <fullyQualifiedTypeName name="org.apache.commons.math3.geometry.euclidean.threed.Vector3D"/>
+    <fullyQualifiedTypeName name="org.apache.commons.math3.linear.RealVector"/>
+    <fullyQualifiedTypeName name="org.apache.commons.math3.linear.RealMatrix"/>
+    <fullyQualifiedTypeName name="org.apache.commons.math3.linear.Array2DRowRealMatrix"/>
+    <fullyQualifiedTypeName name="ca.cidco.csb.MatrixXd"/>
 </qualifiedTypeNameHistroy>

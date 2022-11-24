@@ -9,9 +9,8 @@ public class WlrsGeoreferencing extends Georeference{
 	
 
 	@Override
-	protected BathymetryPoint georeference(Position position, Attitude attitude, Depth depth) {
-		// TODO Auto-generated method stub
-		return null;
+	protected BathymetryPoint georeference(Position position, Attitude attitude, Depth depth) throws Exception {
+		throw new Exception("WLRS georeferencing not implemented");
 	}
 
 }

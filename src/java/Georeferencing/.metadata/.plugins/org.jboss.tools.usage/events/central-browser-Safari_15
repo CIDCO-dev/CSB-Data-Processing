@@ -1,10 +1,10 @@
-#Thu Oct 27 09:15:34 EDT 2022
-ct=central
+#Mon Nov 14 09:00:13 EST 2022
 a=browser
-c=0
-s=0
-d=1666876534969
-v=2.2.0
-cmp=central
+c=1
 cl=Safari_15
+cmp=central
+ct=central
+d=1668434413275
 l=Specifies which browser was used for JBoss Tools Central
+s=0
+v=2.2.0

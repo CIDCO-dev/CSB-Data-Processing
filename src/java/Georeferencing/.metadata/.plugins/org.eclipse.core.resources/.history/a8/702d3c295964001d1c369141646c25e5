@@ -1,0 +1,59 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import java.sql.Timestamp;
+import java.util.Date;
+
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealVector;
+import org.junit.Test;
+
+import ca.cidco.csb.surveydata.Position;
+import ca.cidco.csb.utilities.Conversion;
+import ca.cidco.csb.utilities.Geodesy;
+
+public class GeodesyTest {
+
+	Geodesy geo = new Geodesy();
+
+	Timestamp t = new Timestamp(new Date().getTime());
+	double latitude= 45.025;
+	double longitude= -51.24;
+	double height= -12.0;
+	
+	Position position = new Position(t, latitude, longitude, height, 0.01, 0.01, 0.01, 20, 0.05 );
+			
+// 		(45.025, -51.24, -12.0)  tested on
+//		https://www.oc.nps.edu/oc2902w/coord/llhxyz.htm
+//		Result =>  X: 2827.046km 	Y: -3521.167km  Z: 4489.304km
+			
+	
+	@Test
+	public void testLLH2ecef() {
+		
+		System.err.println(geo.LLH_2_ECEF(latitude, longitude, height));
+		
+		RealVector vector = geo.LLH_2_ECEF(45.025, -51.24, -12.0);
+		assertTrue (vector.getEntry(0)<2827046+1 && vector.getEntry(0)>2827046 -1);
+		assertTrue (vector.getEntry(1)<-3521167+1 && vector.getEntry(1)>-3521167 -1);
+		assertTrue (vector.getEntry(2)<4489304+1 && vector.getEntry(2)>4489304 -1);
+	}
+	
+	@Test
+	public void testECEF_2_LatLonH() {
+		RealVector coord = geo.ECEF_2_LatLonH(2827045.533123545, -3521166.5935412007, 4489304.046374496);
+		assertTrue(coord.getEntry(0)<latitude+0.001 && coord.getEntry(0)>latitude-0.001);
+		assertTrue(coord.getEntry(1)<-longitude+0.001 && coord.getEntry(1)>longitude-0.001);
+		assertTrue(coord.getEntry(2)<height+0.001 && coord.getEntry(2)>height-0.001);
+	}
+	
+	@Test
+	public void testNed2ecef() {
+		Array2DRowRealMatrix ned2ecef = Geodesy.ned2ecef(position);
+		System.err.println(ned2ecef.toString());
+		
+	}
+	
+	
+}

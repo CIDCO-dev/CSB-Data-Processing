@@ -1,0 +1,30 @@
+package ca.cidco.csb;
+
+import java.util.Scanner;
+
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
+
+public class MatrixXd {
+	
+	public static void initializeMatrixXd(Array2DRowRealMatrix matrix, double Roll, double Pitch, double Heading) {
+		double cR = Math.cos(Roll);
+		double sR = Math.sin(Roll);
+		double cP = Math.cos(Pitch);
+		double sP = Math.sin(Pitch);
+		double cY = Math.cos(Heading);
+		double sY = Math.sin(Heading);
+		
+		matrix.addToEntry(0, 0, (cY*cP));
+		matrix.addToEntry(0, 1, (cY*sP*sR-cR*sY));
+		matrix.addToEntry(0, 2,(cY*cR*sP+sR*sY));
+		matrix.addToEntry(1, 0, (cP*sY));
+		matrix.addToEntry(1, 1, (cY*cR+sP*sR*sY));
+		matrix.addToEntry(1, 2, (sY*cR*sP-cY*sR));
+		matrix.addToEntry(2, 0, (-sP));
+		matrix.addToEntry(2, 1, (cP*sR));
+		matrix.addToEntry(2, 2, (cR*cP)); 
+	}
+	
+	
+}

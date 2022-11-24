@@ -1,0 +1,70 @@
+package ca.cidco.csb.georeference;
+
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
+
+import ca.cidco.csb.MatrixXd;
+import ca.cidco.csb.surveydata.Attitude;
+import ca.cidco.csb.surveydata.Depth;
+import ca.cidco.csb.surveydata.Position;
+import ca.cidco.csb.utilities.Conversion;
+import ca.cidco.csb.utilities.Geodesy;
+
+public class ErsGeoreferencing extends Georeference{
+
+	RealVector leverArm;
+	double a= Geodesy.a;
+	double e= Geodesy.e;
+	
+	public ErsGeoreferencing(RealVector leverArm) {
+		this.leverArm= leverArm;
+	}
+	
+
+
+	@Override
+	protected BathymetryPoint georeference(Position position, Attitude attitude, Depth depth) {
+
+		
+//Zprofil = Zprofil.array() - draft;   draft WLRS seulement
+		
+		//Convert Euler angles to radians
+		double rollRadians = Conversion.deg2Rad(attitude.getRoll());
+		double pitchRadians =Conversion.deg2Rad(attitude.getPitch());
+		double headingRadians = Conversion.deg2Rad(attitude.getHeading());
+		Geodesy geo = new Geodesy();
+		
+		//Init IMU to NED matrix
+		Array2DRowRealMatrix imu2ned = new Array2DRowRealMatrix(3, 3);
+		MatrixXd.initializeMatrixImu2Ned(imu2ned, rollRadians, pitchRadians, headingRadians);
+
+		//Init NED to ECEF Matrix
+		Array2DRowRealMatrix ned2ecef = new Array2DRowRealMatrix(3, 3);
+		MatrixXd.initializeMatrixNed2Ecef(ned2ecef, position);
+
+		//We ahve a position in the ECEF frame
+		RealVector positionECEF= geo.LLH_2_ECEF(position.getLatitude(), position.getLongitude(), position.getHeight());
+		
+		//convert ping from IMU frame to ECEF frame
+		RealVector pingECEF = ned2ecef.preMultiply(imu2ned.preMultiply(new ArrayRealVector(new double[] { 0.0, 0.0, depth.getDepth() })));
+		
+		//convert lever arm from IMU frame to ECEF
+		RealVector leverArmECEF = ned2ecef.preMultiply(imu2ned.preMultiply(leverArm));
+		
+		//Georeferenced sounding is the sum of the 3 vectors (in the ECEF frame)
+		RealVector georefPing = positionECEF.add(pingECEF).add(leverArmECEF) ;
+		
+		//Convert georeferenced ping in ECEF frame to Lat/Lon coordinates
+		RealVector georef = geo.ECEF_2_LatLonH(georefPing.getEntry(0), georefPing.getEntry(1), georefPing.getEntry(2));
+		
+		double latGeoref = georef.getEntry(0);
+		double lonGeoref = georef.getEntry(1);
+		double hGeoref = georef.getEntry(2);
+		
+		BathymetryPoint bathymetryPoint= new BathymetryPoint(depth.getTimestamp(), lonGeoref, latGeoref, hGeoref, position.getSdLongitude(), position.getSdLatitude(), position.getSdHeight());
+		
+		return bathymetryPoint;	
+	}
+
+}

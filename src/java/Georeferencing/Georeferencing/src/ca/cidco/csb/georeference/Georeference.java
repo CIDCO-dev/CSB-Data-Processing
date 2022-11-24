@@ -1,15 +1,11 @@
 package ca.cidco.csb.georeference;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
-import ca.cidco.csb.utilities.Conversion;
-import ca.cidco.csb.utilities.Interpolation;
 import ca.cidco.csb.surveydata.Attitude;
 import ca.cidco.csb.surveydata.Depth;
 import ca.cidco.csb.surveydata.Position;
+import ca.cidco.csb.utilities.Interpolation;
 
 public abstract class Georeference {
 
@@ -64,5 +60,6 @@ public abstract class Georeference {
 		}
 		return bathymetryPoints;
 	}
-	protected abstract BathymetryPoint georeference(Position position, Attitude attitude, Depth depth);
+		
+	protected abstract BathymetryPoint georeference(Position position, Attitude attitude, Depth depth)  throws Exception;
 }

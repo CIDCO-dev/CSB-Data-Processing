@@ -1,0 +1,50 @@
+package ca.cidco.csb;
+
+
+import java.util.Vector;
+import java.lang.Math;
+//import ca.cidco.csb.MatrixXd;
+
+
+public class Georeferencing {
+	
+	final static double PI = 3.14159265358979323846;
+	double x;
+	double y;
+	double z;
+	MatrixXd Cbin_NED = new MatrixXd();
+	
+	
+	public Georeferencing() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	// DCM: C_bi_n - NED convention
+
+	/**
+	 * Compute the Direction Cosine Matrix
+	 * 
+	 * @param Cbin_NED The Direction Cosine Matrix
+	 * @param Roll the roll angle of the boat in degrees w.r.t the navigation frame
+	 * @param Pitch the angle value of the pitch movement of the boat (degrees)
+	 * @param Heading the angle value of the yaw movement of the boat (degrees)
+	 */
+	public void dcm(double Roll, double Pitch, double Heading) {
+		
+		// Initialisation
+		double cR = Math.cos(Roll);
+		double sR = Math.sin(Roll);
+		
+		double cP = Math.cos(Pitch);
+		double sP = Math.sin(Pitch);
+		
+		double cY = Math.cos(Heading);
+		double sY = Math.sin(Heading);
+
+		// DCM                                
+		Cbin_NED.initializeMatrixXd(cR, sR, cP, sP, cY, sY);
+//		Cbin_NED.printMatrix(Cbin_NED);
+		
+
+	}
+}

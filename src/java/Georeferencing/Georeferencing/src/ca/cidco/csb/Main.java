@@ -1,9 +1,14 @@
 package ca.cidco.csb;
 
-import static org.junit.Assert.assertTrue;
+import java.util.List;
 
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
+
+import ca.cidco.csb.georeference.BathymetryPoint;
 import ca.cidco.csb.georeference.ErsGeoreferencing;
 import ca.cidco.csb.georeference.Georeference;
+import ca.cidco.csb.georeference.WlrsGeoreferencing;
 import ca.cidco.csb.ppp.NrcanPPP;
 import ca.cidco.csb.ppp.PppFile;
 import ca.cidco.csb.surveyplatform.hydroblock.Hydroblock20;
@@ -13,20 +18,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		//TODO: Testing CLI 
-		
-    	// ubx test if no cli args
 
-		String test9ubx = "/home/dominic/Bureau/georef/2022.10.11_224413.ubx"; // Valid 	 POS		Bella
-		String test9imu = "/home/dominic/Bureau/georef/2022.10.11_223416_imu.txt"; 
-		String test9sonar = "/home/dominic/Bureau/georef/2022.10.11_223416_sonar.txt"; 
-		String test9 = "/home/dominic/Bureau/georef/"; 
-		String test1 = "/home/dominic/Bureau/georef/test/"; 
-		String test2 = "/home/dominic/Bureau/georef/test2/"; 
-		String test3 = "/home/dominic/Bureau/georef/test3/"; 
-		String ubx194410 = "/home/dominic/Bureau/ubx/2022.10.10_194410.ubx"; 
-		
-		
-		//CLI args
 /*		String gnssBinaryFile="";
 		if (args.length > 0) 	
 		    try {
@@ -42,33 +34,39 @@ public class Main {
 			System.err.println("No arg in CLI, processing this test file :"+gnssBinaryFile);
 		}
 */		
-		// test9 is dataPath with imu sonar and ubx files
 		try {
-			NrcanPPP nrcan = new NrcanPPP(ubx194410);
-			
-			System.out.println(nrcan.getUbxFilePath());
-			System.out.println(nrcan.getFileName());
-			System.out.println(nrcan.getNameNoExt());
-			System.out.println(nrcan.getUbxFileDirectory());
-			System.out.println(nrcan.getWorkingDirectoryName());
-			System.out.println(nrcan.getDirectoryRinexName());
-			System.out.println(nrcan.getPppDirectoryName());
+			String nrcanUsername = "dominic.gonthier@cidco.ca";
+//			String dataFolder = "/home/dominic/Bureau/Git/CSB-Data-Processing/src/java/Georeferencing/Georeferencing/src/ca/cidco/csb/test/data/2022_10_11_224413";
+			String dataFolder = "data/hydroblockReadDataTest/completeData/";
 
+			RealVector leverArm = new ArrayRealVector(new double[]{1,2,3}); //TODO: get lever arm from....CLI ? 
+			
+			//read Hydroblock Data
+			Hydroblock20 hydro = new Hydroblock20();
+			hydro.read(dataFolder);
+			//get ppp data from NRCAn using ubxFile, and replace hydroblock position data with nrcan ppp data
+			NrcanPPP nrcan = new NrcanPPP(hydro.getUbxPath());
+			PppFile pppFile = nrcan.fetchPPP(nrcanUsername);
+			hydro.setPositions(pppFile.getPositions());
+			
+			//Qualify Gnss data to determine which georeferencing method to use
+			GnssQualifier gnss = new GnssQualifier();
+			gnss.validate(pppFile);
+			
+			if (gnss.isWlrsValid() || gnss.isErsValid()){
+				Georeference geo=(gnss.isErsValid())?new ErsGeoreferencing(leverArm):new WlrsGeoreferencing(); 
+				List<BathymetryPoint> points = geo.process(hydro.getPositions(), hydro.getAttitudes(), hydro.getDepths());
+				for(BathymetryPoint p : points) {
+					System.out.println(p.toString());
+				}
+				System.err.println("points.size : "+points.size());
+			}
+			else {
+				throw new Exception("No valid georeferencing method available");
+			}
 			
 			
-//			PppFile ppp= nrcan.fetchPPP("dominic.gonthier@cidco.ca");
-//			System.err.println(ppp.getPositions().size());
 			
-			
-//			System.out.println(Conversion.convertDMStoDecimalDegree(342.12, 48.234 , 56.4567));
-//			Hydroblock20 hydro = new Hydroblock20();
-//			hydro.read(test9);
-			
-						
-//			ErsGeoreferencing georef = new ErsGeoreferencing();
-//			System.out.println(georef.getClass());
-//			georef.process(hydro.getPositions(), hydro.getAttitudes(), hydro.getDepths());
-//			System.err.println(georef.getBathyPoints().size());
 
 			
 		}
@@ -77,14 +75,6 @@ public class Main {
 		}
 			
 
-/*
-		Georeferencing geo =new Georeferencing();
-		geo.dcm(1.054, 4.25, 1.2458);
-		
-//		public void LatLonH_2_ECEF(double lat, double lon, double ellipsoidal_height, double half_ellipsoidal_axe, double first_eccentricity)
-		geo.LatLonH_2_ECEF(46.86194, -4.470, 48.8, 6378137, 0.081819190842622);
-*/		
-		
 		
 
 	}

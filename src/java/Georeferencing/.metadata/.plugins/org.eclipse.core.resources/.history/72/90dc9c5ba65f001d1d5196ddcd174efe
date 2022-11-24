@@ -1,0 +1,43 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import org.apache.commons.math3.linear.RealVector;
+import org.junit.Test;
+
+import ca.cidco.csb.utilities.Conversion;
+import ca.cidco.csb.utilities.Geodesy;
+
+public class GeodesyTest {
+
+	Geodesy geo = new Geodesy();
+		
+	
+	@Test
+	public void testLLH2ecef() {
+		
+		System.err.println(geo.LLH_2_ECEF(45.025, -51.24, -12.0));
+		
+/*		
+ 		(45.025, -51.24, -12.0)  tested on
+		https://www.oc.nps.edu/oc2902w/coord/llhxyz.htm
+		Result =>  X: 2827.046km 	Y: -3521.167km  Z: 4489.304km
+*/		
+		RealVector vector = geo.LLH_2_ECEF(45.025, -51.24, -12.0);
+		assertTrue (vector.getEntry(0)<2827046+1 && vector.getEntry(0)>2827046 -1);
+		assertTrue (vector.getEntry(1)<-3521167+1 && vector.getEntry(1)>-3521167 -1);
+		assertTrue (vector.getEntry(2)<4489304+1 && vector.getEntry(2)>4489304 -1);
+		
+	}
+	
+	@Test
+	public void testECEF_2_LatLonH() {
+		double[] coord = geo.ECEF_2_LatLonH(1809321.3190287973, -2665911.265863523, 5486065.399538532);
+		double[] coord = geo.ECEF_2_LatLonH(2827045.533123545, -3521166.5935412007, 4489304.046374496);
+		System.out.println("lat : 	 "+Conversion.rad2Deg(coord[0])+" 		Devrait être 45.025");
+		System.out.println("long:  	 "+Conversion.rad2Deg(coord[1])+" 		Devrait être -51.24");
+		System.out.println("height : "+coord[2]+" 		Devrait être -12");
+	}
+	
+
+}

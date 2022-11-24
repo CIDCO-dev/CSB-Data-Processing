@@ -1,0 +1,19 @@
+package ca.cidco.csb.test;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import ca.cidco.csb.utilities.Geodesy;
+
+public class GeodesyTest {
+
+	Geodesy geo = new Geodesy();
+	
+	
+	@Test
+	public void testLatLonH_2_ECEF() {
+		System.err.println(geo.LatLonH_2_ECEF(45.025, -51.24, -12.0));
+	}
+
+}

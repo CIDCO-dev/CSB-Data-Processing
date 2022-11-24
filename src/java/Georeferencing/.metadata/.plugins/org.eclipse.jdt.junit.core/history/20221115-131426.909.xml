@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun ca.cidco.csb.test.GeoreferencingTest" project="Georeferencing" tests="3" started="3" failures="2" errors="0" ignored="0">
+  <testsuite name="ca.cidco.csb.test.GeoreferencingTest" time="0.034">
+    <testcase name="testGeoreferencePositionWithLeverarm" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.033">
+      <failure>java.lang.AssertionError: Height values incorrect expected:&lt;-32.9999996&gt; but was:&lt;7.000000390224159&gt;
+	at junit@1956/org.junit.Assert.fail(Assert.java:89)
+	at junit@1956/org.junit.Assert.failNotEquals(Assert.java:835)
+	at junit@1956/org.junit.Assert.assertEquals(Assert.java:555)
+	at Georeferencing/ca.cidco.csb.test.GeoreferencingTest.testGeoreferencePositionWithLeverarm(GeoreferencingTest.java:102)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at junit@1956/org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at junit@1956/org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at junit@1956/org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at junit@1956/org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at junit@1956/org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at junit@1956/org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at junit@1956/org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at junit@1956/org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at junit@1956/org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at junit@1956/org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at junit@1956/org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at junit@1956/org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at junit@1956/org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at junit@1956/org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at junit@1956/org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at junit@1956/org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:93)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:40)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:529)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:756)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:452)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)
+
+</failure>
+    </testcase>
+    <testcase name="testGeoreferencePositionWithDepth" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.001">
+      <failure>java.lang.AssertionError: Height values incorrect expected:&lt;10.0&gt; but was:&lt;7.000000390224159&gt;
+	at junit@1956/org.junit.Assert.fail(Assert.java:89)
+	at junit@1956/org.junit.Assert.failNotEquals(Assert.java:835)
+	at junit@1956/org.junit.Assert.assertEquals(Assert.java:555)
+	at Georeferencing/ca.cidco.csb.test.GeoreferencingTest.testGeoreferencePositionWithDepth(GeoreferencingTest.java:73)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at junit@1956/org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at junit@1956/org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at junit@1956/org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at junit@1956/org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at junit@1956/org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at junit@1956/org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at junit@1956/org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at junit@1956/org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at junit@1956/org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at junit@1956/org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at junit@1956/org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at junit@1956/org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at junit@1956/org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at junit@1956/org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at junit@1956/org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at junit@1956/org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:93)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:40)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:529)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:756)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:452)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:210)
+
+</failure>
+    </testcase>
+    <testcase name="testGeoreferencePositionOnly" classname="ca.cidco.csb.test.GeoreferencingTest" time="0.0"/>
+  </testsuite>
+</testrun>

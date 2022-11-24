@@ -1,0 +1,29 @@
+package ca.cidco.csb.utilities;
+
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
+
+public class Geodesy {
+	double a = ; wikipedia standart WGS84
+	double e = ;
+	
+	/**
+	 * Transform ECEF geographic coordinates to cartesian
+	 */
+	public RealVector LatLonH_2_ECEF(double lat, double lon, double h, double a, double e){
+		
+		
+//		// Transformation of lon, lat, h to TRF
+		double N = a/Math.sqrt( 1 - Math.pow(e*Math.sin(lat),2) );
+//		System.out.println("N: "+N );
+
+		double x = (N + h)*Math.cos(lat)*Math.cos(lon);
+		double y = (N + h)*Math.cos(lat)*Math.sin(lon);
+		double z = (N*(1-Math.pow(e,2)) + h)*Math.sin(lat);
+
+		System.out.println("x: "+x +"	y: "+y+"	z: "+z);
+		return new ArrayRealVector(new double[] { x, y, z });
+	}
+	
+//	
+}

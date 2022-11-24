@@ -1,0 +1,22 @@
+package ca.cidco.csb;
+
+
+import java.util.Vector;
+import java.lang.Math;
+//import ca.cidco.csb.MatrixXd;
+
+
+public class Georeferencing {
+	
+	final static double PI = 3.14159265358979323846;
+	double x;
+	double y;
+	double z;
+
+	
+	public Georeferencing() {
+		// TODO Auto-generated constructor stub
+	}
+	
+
+}

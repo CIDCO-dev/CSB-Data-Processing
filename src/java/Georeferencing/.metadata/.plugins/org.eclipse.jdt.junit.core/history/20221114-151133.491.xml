@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun ca.cidco.csb.test.GeodesyTest.testNed2ecef" project="Georeferencing" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="testNed2ecef" classname="ca.cidco.csb.test.GeodesyTest" time="0.028"/>
+</testrun>

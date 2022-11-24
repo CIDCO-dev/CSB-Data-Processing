@@ -1,0 +1,74 @@
+package ca.cidco.csb.utilities;
+
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
+
+public class Geodesy {
+	
+	public final static double PI = 3.14159265358979323846;
+	public final static double a = 6378137.0; //demi grand axe (WGS84) meters 
+	public final static double e = 0.081819190842622; //first eccentricity (WGS84)
+	public final static double e2 = Math.pow(e, 2); // eccentricity squared
+	
+
+	/**
+	 * Transform ECEF geographic coordinates to cartesian
+	 * Convert latitude, longitude, height in WGS84 to ECEF X,Y,Z
+	 * latitude and longitude given in decimal degrees.
+	 * Height should be given in meters
+	 */
+	public RealVector LLH_2_ECEF (double latitude, double longitude, double h) {
+		
+		  double lat = latitude/180*PI; // converting to radians
+		  double lon = longitude/180*PI; // converting to radians
+		 
+		  double chi = Math.sqrt(1-e2*Math.pow(Math.sin(lat),2));
+		  double X = (a/chi +h)*Math.cos(lat)*Math.cos(lon);
+		  double Y = (a/chi +h)*Math.cos(lat)*Math.sin(lon);
+		  double Z = (a*(1-e2) /chi + h)*Math.sin(lat);
+		  
+		  return new ArrayRealVector(new double[] { X, Y, Z });
+	}
+	
+	/**
+	 *  convert ECEF coordinates to LLH
+	 */
+	public RealVector ECEF_2_LatLonH(double x, double y, double z){
+		// Computation of parameters
+		double b   = Math.sqrt((a*a)*(1-e2));  
+		double e1  = Math.sqrt( (a*a-b*b)/(b*b) ); 
+		double p = Math.sqrt((x*x) + (y*y));		 
+		double q = Math.atan2((z*a), (p*b));  
+
+		// computation Latitude and longitude in rad
+		double lon = Math.atan2(y,x);
+		double lat = Math.atan2((z + (e1*e1) *b* Math.pow(Math.sin(q), 3)), (p - (e2) * a * Math.pow(Math.cos(q), 3)));  
+
+		// Altitude computation in m
+		double N = a / Math.sqrt(1-(e2*(Math.sin(lat)*Math.sin(lat))));  
+		double h = (p / Math.cos(lat)) - N;  	
+		
+		return new ArrayRealVector(new double[]{Conversion.rad2Deg(lat),Conversion.rad2Deg(lon), h });
+	}
+	
+	// Navigation frame to ECEF
+	/* This function is used to transform navigation frame to terrestrial frame
+	Input data:
+	- lat, lon: latitude and longitude in (rad)
+	- xn, yn, zn: vector coordinated in n-frame
+	Output data:
+	- x, y, z: vector coordinated in TRF-frame
+	*/
+	void Nav_2_ECEF(double & x, double & y, double & z, double lat, double lon, double xn, double yn, double zn)
+	{
+		double clat = cos(lat), clon = cos(lon);
+		double slat = sin(lat), slon = sin(lon);
+
+		// Xn to XTRF
+		x = -clat*clon*zn-slon*yn-clon*slat*xn;
+		y = -clat*slon*zn+clon*yn-slat*slon*xn;
+		z =  clat*xn-slat*zn;
+
+	}
+	
+}

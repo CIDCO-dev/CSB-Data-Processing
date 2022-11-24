@@ -1,0 +1,55 @@
+package ca.cidco.csb.utilities;
+
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
+
+public class Geodesy {
+	
+	final static double PI = 3.14159265358979323846;
+
+	double a = 6378137.0; //demi grand axe (WGS84) meters 
+	double e = 0.081819190842622; //première excentricité (WGS84)
+	
+
+	/**
+	 * Transform ECEF geographic coordinates to cartesian
+	 */
+	public RealVector LatLonH_2_ECEF(double lat, double lon, double h){
+		
+		
+//		// Transformation of lon, lat, h to TRF
+		double N = a/Math.sqrt( 1 - Math.pow(e*Math.sin(lat),2) );
+//		System.out.println("N: "+N );
+
+		double x = (N + h)*Math.cos(lat)*Math.cos(lon);
+		double y = (N + h)*Math.cos(lat)*Math.sin(lon);
+		double z = (N*(1-Math.pow(e,2)) + h)*Math.sin(lat);
+
+		System.out.println("x: "+x +"	y: "+y+"	z: "+z);
+		return new ArrayRealVector(new double[] { x, y, z });
+	}
+	
+	/**
+	 * Transform ECEF geographic coordinates to cartesian
+	 * Convert lat, lon, height in WGS84 to ECEF X,Y,Z
+	 * lat and lon given in decimal degrees.
+	 * altitude should be given in meters
+	 */
+	public RealVector LLH2xyz (double la, double lo, double h) {
+		
+			  double lat = la/180*PI; // converting to radians
+			  double lon = lo/180*PI; // converting to radians
+			  double e2 = e*e; 		  // eccentricity squared
+			 
+			  double chi = Math.sqrt(1-e2*Math.pow(Math.sin(lat),2));
+//			  X = (a./chi +h).*cos(lat).*cos(long);
+			  double X = (a/chi +h)*Math.cos(lat)*Math.cos(lon);
+//			  Y = (a./chi +h).*cos(lat).*sin(long);
+			  double Y = (a/chi +h)*Math.cos(lat)*Math.sin(lon);
+//			  Z = (a*(1-e2)./chi + h).*sin(lat);
+			  double Z = (a*(1-e2) /chi + h)*Math.sin(lat);
+			  
+			  return new ArrayRealVector(new double[] { X, Y, Z });
+	}
+//	
+}

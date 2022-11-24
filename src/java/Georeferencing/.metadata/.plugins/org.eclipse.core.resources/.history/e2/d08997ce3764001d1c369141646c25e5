@@ -1,0 +1,86 @@
+package ca.cidco.csb;
+
+import java.util.Scanner;
+
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.RealMatrix;
+
+import ca.cidco.csb.surveydata.Position;
+
+public class MatrixXd {
+	
+	public static void initializeMatrixImu2Ned(Array2DRowRealMatrix matrix, double Roll, double Pitch, double Heading) {
+		double cR = Math.cos(Roll);
+		double sR = Math.sin(Roll);
+		double cP = Math.cos(Pitch);
+		double sP = Math.sin(Pitch);
+		double cY = Math.cos(Heading);
+		double sY = Math.sin(Heading);
+		
+		matrix.addToEntry(0, 0, (cY*cP));
+		matrix.addToEntry(0, 1, (cY*sP*sR-cR*sY));
+		matrix.addToEntry(0, 2,(cY*cR*sP+sR*sY));
+		matrix.addToEntry(1, 0, (cP*sY));
+		matrix.addToEntry(1, 1, (cY*cR+sP*sR*sY));
+		matrix.addToEntry(1, 2, (sY*cR*sP-cY*sR));
+		matrix.addToEntry(2, 0, (-sP));
+		matrix.addToEntry(2, 1, (cP*sR));
+		matrix.addToEntry(2, 2, (cR*cP)); 
+	}
+	
+	public static void initializeMatrixTerrestial2LocalGeodetic(Array2DRowRealMatrix matrix, Position pos) {
+
+		
+		double m00 = -Math.sin(pos.getLatitude()) * Math.cos(pos.getLatitude());
+		double m01 = -Math.sin(pos.getLatitude()) * Math.sin(pos.getLongitude());
+		double m02 = Math.cos(pos.getLatitude());
+		
+		double m10 = -Math.sin(pos.getLongitude());
+		double m11 = Math.cos(pos.getLongitude());
+		double m12 = 0;
+		
+		double m20 = -Math.cos(pos.getLatitude()) * Math.cos(pos.getLongitude());
+		double m21 = -Math.cos(pos.getLatitude()) * Math.sin(pos.getLongitude());
+		double m22 = -Math.sin(pos.getLatitude());
+
+		matrix.addToEntry(0, 0, m00);
+		matrix.addToEntry(0, 1, m01);
+		matrix.addToEntry(0, 2, m02);
+		matrix.addToEntry(1, 0, m10);
+		matrix.addToEntry(1, 1, m11);
+		matrix.addToEntry(1, 2, m12);
+		matrix.addToEntry(2, 0, m20);
+		matrix.addToEntry(2, 1, m21);
+		matrix.addToEntry(2, 2, m22); 
+	}
+
+	static void ned2ecef(Array2DRowRealMatrix ned2ecef, Position pos){
+	
+	    ,position.getClon(),-position.getClat()*position.getSlon(),
+	    position.getClat(),0,-position.getSlat();
+	
+	    double m00 =-Math.cos(pos.getLongitude())*Math.sin(pos.getLatitude());
+	    double m01 =-Math.sin(pos.getLongitude());
+	    double m02 =-Math.cos(pos.getLatitude())*Math.cos(pos.getLongitude());
+	    double m10 =-Math.sin(pos.getLatitude())*Math.sin(pos.getLongitude());
+	    double m11 =Math.cos(pos.getLongitude());
+	    double m12 =-Math.cos(pos.getLatitude())*Math.sin(pos.getLongitude());
+	    double m20 =Math.cos(pos.getLatitude());
+	    double m21 =0;
+	    double m22 =-Math.sin(pos.getLatitude());
+	    
+	    
+		matrix.addToEntry(0, 0, m00);
+		matrix.addToEntry(0, 1, m01);
+		matrix.addToEntry(0, 2, m02);
+		matrix.addToEntry(1, 0, m10);
+		matrix.addToEntry(1, 1, m11);
+		matrix.addToEntry(1, 2, m12);
+		matrix.addToEntry(2, 0, m20);
+		matrix.addToEntry(2, 1, m21);
+		matrix.addToEntry(2, 2, m22);
+	    
+	  }
+	
+	
+}
