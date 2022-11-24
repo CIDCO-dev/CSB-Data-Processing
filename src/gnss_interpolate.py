@@ -16,6 +16,7 @@ import pandas as pd
 import numpy as np
 import os
 import sys
+import math
 from datetime import datetime
 
 
@@ -182,7 +183,7 @@ class GnssInterpolation:
             ys0 = float(y0) + (dy * (dt_ps / dtp))
             zs0 = float(z0) + (dz * (dt_ps / dtp))
 
-            # deal with heading
+            # check if heading oscillates about 0 deg
             if 350 <= h0 <= 360 and 0 <= h1 <= 10:
                 h1 = h1 + 360
                 #return h1
@@ -229,12 +230,22 @@ class GnssInterpolation:
             dt = datetime.fromtimestamp(timestamps[timestamp])
             dt_list.append(dt)
 
-        # compile dataframe
+        # convert degrees to radians (not required for input to batch mode processing)
+        #y = np.deg2rad(y)
+        #x = np.deg2rad(x)
+        #h = np.deg2rad(h)
+        #p = np.deg2rad(p)
+        #r = np.deg2rad(r)
+
+        # compile dataframes
         ers = pd.DataFrame({'travelTime': np.array(tt_list), 'latitude': np.array(y), 'longitude': np.array(x),
                             'height': np.array(z), 'heading': np.array(h), 'pitch': np.array(p),
                             'roll': np.array(r), 'depth': np.array(s), 'datetime': np.array(dt_list)})
+        georef_batch_input = pd.DataFrame({'travelTime': np.array(tt_list), 'latitude': np.array(y), 'longitude': np.array(x),
+                            'height': np.array(z), 'heading': np.array(h), 'pitch': np.array(p),
+                            'roll': np.array(r)})
 
-        return ers.to_csv('er_soundings.csv', header=True, index=False)
+        return georef_batch_input.to_csv('georef_batch_input.txt', sep=' ', header=False, index=False)
 
 
 #
