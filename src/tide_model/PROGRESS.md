@@ -6,3 +6,8 @@ In processing the time, you must becareful with the epoch you're using, so as no
  I converted the time to an array to enable the predict code to read it.
  
  I think the next stage is to bring in a .pos file or .csv file, read the data, run the code and output (Time, LAT, LON, Tide) as a file.
+
+Just added three other files for:
+Processing of TPXO9-v5 model
+Processing of FES Model
+Processing TPXO9 or FES model
