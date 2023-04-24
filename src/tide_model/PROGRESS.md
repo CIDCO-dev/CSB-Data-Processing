@@ -11,3 +11,6 @@ Just added three other files for:
 Processing of TPXO9-v5 model
 Processing of FES Model
 Processing TPXO9 or FES model
+
+The FES_MultiPoint_Predict.ipynb can predict the tide for multiple points at the same time.
+The code used five locations and Times to test the prediction and the results are accurate as it is with the single point prediction.
